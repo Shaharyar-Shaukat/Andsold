@@ -10,6 +10,7 @@ authentication.serializeUser(function(user, done) {
 authentication.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
         done(err, user);
+
     });
 });
 

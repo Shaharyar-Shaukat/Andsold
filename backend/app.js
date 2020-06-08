@@ -36,6 +36,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
 app.use(morgan('dev'));
 app.use(require('cookie-parser')());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,6 +45,9 @@ app.use(passport.session());
 
 // Routes Middleware
 app.use('/api/authentication',auth);
+
+// Routes Middleware
+app.use('/api/authentication',authenticationRoutes);
 
 // Server
 app.listen(port, () => {
