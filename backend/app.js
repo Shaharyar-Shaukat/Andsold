@@ -1,5 +1,8 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 
@@ -25,7 +28,11 @@ mongoose
 app.use('/api/authentication',authenticationRoutes);
 
 // Middleware
+app.use(bodyParser.json());
+app.use(morgan('dev'));
+app.use(cookieParser());
 
+// Server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
