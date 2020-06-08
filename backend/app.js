@@ -24,13 +24,16 @@ mongoose
     .then(() => console.log('DB Connected'));
     
 
-// Routes Middleware
-app.use('/api/authentication',authenticationRoutes);
+
 
 // Middleware
+app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cookieParser());
+
+// Routes Middleware
+app.use('/api/authentication',authenticationRoutes);
 
 // Server
 app.listen(port, () => {
