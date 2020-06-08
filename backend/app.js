@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const expressValidator = require('express-validator');
 require('dotenv').config();
 
 
@@ -31,6 +32,7 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cookieParser());
+app.use(expressValidator());
 
 // Routes Middleware
 app.use('/api/authentication',authenticationRoutes);
