@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
+const { userSignupValidator } = require('../helpers/validator');
 
-router.post("/signup", (req, res, next) => {
+router.post("/signup", userSignupValidator, (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
         if(err) {
             return res.status(400).json({errors: err});
@@ -21,5 +22,7 @@ router.post("/signup", (req, res, next) => {
         })
     })(req, res, next);
 });
+
+
 
 module.exports = router;
