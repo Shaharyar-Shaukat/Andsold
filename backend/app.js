@@ -3,14 +3,13 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 const MongoStore = require("connect-mongo")(session);
 const mongoose = require('mongoose');
-
-const passport = require("./controllers/passport")
-const authentication = require("./routes/authentication")
-
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
 require('dotenv').config();
+
+const passport = require("./controllers/signup")
+const authentication = require("./routes/authentication")
 
 // app
 const app = express();
@@ -39,12 +38,12 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(expressValidator());
-
 app.use(morgan('dev'));
 app.use(require('cookie-parser')());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors());
 
 // Routes Middleware
 app.use('/authentication',authentication);

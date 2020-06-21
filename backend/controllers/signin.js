@@ -1,21 +1,21 @@
 const User = require('../models/user');
 const bcrypt = require("bcrypt");
-const passport = require("passport");
+const signup = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
-passport.serializeUser(function(user, done) {
+signup.serializeUser(function(user, done) {
     done(null, user.id);
 });
 
-passport.deserializeUser(function(id, done) {
+signup.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
         done(err, user);
 
     });
 });
 
-passport.use(
+signup.use(
     new LocalStrategy(
         {usernameField: "email", passReqToCallback : true},
         function(req, email, password, done) {
@@ -56,4 +56,4 @@ passport.use(
         }
     ));
 
-module.exports = passport;
+module.exports = signup;
