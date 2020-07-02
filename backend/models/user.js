@@ -44,12 +44,12 @@ const UserSchema = new mongoose.Schema(
         },
         image: {}
     },
-    { timestamps: true }
+    {timestamps: true}
 );
 
 UserSchema.pre('save', function (next) {
     const user = this;
-    bcrypt.hash(user.password,10, function(err, hashedPassword) {
+    bcrypt.hash(user.password, 10, function (err, hashedPassword) {
         if (err) return next(err);
         user.password = hashedPassword;
         next();
