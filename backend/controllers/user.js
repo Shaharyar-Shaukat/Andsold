@@ -11,13 +11,9 @@ exports.userById = (req, res, next, id) => {
 };
 
 exports.read = (req, res) => {
-    User.findById(req.profile._id)
-        .exec((err, user) => {
-            if (err) return errorHandler(res, err);
-            user.hashed_password = undefined;
-            user.salt = undefined;
-            res.json(user);
-        });
+    req.profile.hashed_password = undefined;
+    req.profile.salt = undefined;
+    res.json(req.profile);
 };
 
 exports.update = (req, res) => {

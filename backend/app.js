@@ -8,6 +8,8 @@ const expressValidator = require('express-validator');
 require('dotenv').config();
 
 const authentication = require("./routes/authentication")
+const user = require("./routes/user")
+const auction = require("./routes/auction")
 
 // App
 const app = express();
@@ -30,11 +32,13 @@ app.use(express.json());
 app.use(expressValidator());
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
 // Routes
-app.use('/authentication',authentication);
+app.use('/authentication', authentication);
+app.use('/users', user);
+app.use('/auctions', auction);
 
 // Server
 app.listen(port, () => {
