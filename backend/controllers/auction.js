@@ -15,6 +15,9 @@ exports.auctionById = (req, res, next, id) => {
         });
 };
 
+// TODO: List auctions
+// TODO: Search
+
 exports.create = (req, res) => {
     const auction = new Auction(req.body);
     auction.save((err, auction) => {
@@ -24,20 +27,19 @@ exports.create = (req, res) => {
 };
 
 exports.read = (req, res) => {
-    req.auction.photo = undefined;
     return res.json(req.auction);
 };
 
 exports.update = (req, res) => {
-    Auction.findByIdAndUpdate(req.auction._id, {$set: req.body}, {new: true}, (err, user) => {
+    Auction.findByIdAndUpdate(req.auction._id, {$set: req.body}, {new: true}, (err, auction) => {
         if (err) return errorHandler(res, err);
-        res.json(user);
+        res.json(auction);
     });
 };
 
 exports.remove = (req, res) => {
-    Auction.findByIdAndDelete(req.auction._id, (err, user) => {
+    Auction.findByIdAndDelete(req.auction._id, (err, auction) => {
         if (err) return errorHandler(res, err);
-        res.json(user);
+        res.json(auction);
     });
 };

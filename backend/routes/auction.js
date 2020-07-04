@@ -1,20 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-    auctionById,
-    create,
-    read,
-    update,
-    remove,
-} = require("../controllers/auction");
+const { auctionById, create, read, update, remove} = require("../controllers/auction");
 const { userById } = require("../controllers/user");
 const { verifyJwt } = require("../controllers/authentication");
+const { categories } = require("./categories")
 
 router.get("/", auctions);
 router.post("/search", search);
-router.get("/related/:auctionId", auction);
-router.get("/categories", categories);
+// TODO: link categories correctly
+router.use("/categories", categories);
 
 router.post("/create/:userId", verifyJwt, create);
 router.get("/:auctionId", read);
