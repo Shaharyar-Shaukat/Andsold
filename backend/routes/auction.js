@@ -6,6 +6,7 @@ const { userById } = require("../controllers/user");
 const { verifyJwt } = require("../controllers/authentication");
 const { categories } = require("./categories")
 
+// TODO: sorting?
 router.get("/", auctions);
 router.post("/search", search);
 // TODO: link categories correctly

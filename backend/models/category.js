@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// TODO: subcategories?
 const categorySchema = new mongoose.Schema(
     {
         name: {

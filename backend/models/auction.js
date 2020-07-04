@@ -14,6 +14,7 @@ const auctionSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        // TODO: connect Bids to bids Schema
         bids: {
             type: String,
             required: true
