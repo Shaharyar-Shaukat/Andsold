@@ -18,7 +18,11 @@ const auctionSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-
+        category: {
+            type: mongoose.Schema,
+            ref: "Category",
+            required: true
+        }
     },
     {timestamps: true}
 );

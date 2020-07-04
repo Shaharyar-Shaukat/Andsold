@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    productById,
+    auctionById,
     create,
     read,
-    update
+    update,
     remove,
 } = require("../controllers/auction");
 const { userById } = require("../controllers/user");
@@ -18,10 +18,10 @@ router.get("/categories", categories);
 
 router.post("/create/:userId", verifyJwt, create);
 router.get("/:auctionId", read);
-router.put("/:productId/:userId", verifyJwt, update);
-router.delete("/:productId/:userId", verifyJwt, remove);
+router.put("/:auctionId/:userId", verifyJwt, update);
+router.delete("/:auctionId/:userId", verifyJwt, remove);
 
 router.param("userId", userById);
-router.param("productId", productById);
+router.param("auctionId", auctionById);
 
 module.exports = router;
