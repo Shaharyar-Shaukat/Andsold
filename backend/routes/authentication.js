@@ -8,4 +8,4 @@ const { userSignupValidator } = require('../helpers/validator');
 
 router.post("/signup",userSignupValidator,signup);
 
-module.exports = router;
+module.exports = router; 
