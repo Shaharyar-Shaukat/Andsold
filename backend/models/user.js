@@ -1,23 +1,19 @@
 const mongoose = require('mongoose');
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema(
     {
         firstName: {
             type: String,
-            trim: true,
-            required: true,
-            maxlength: 32
+            required: true
         },
         lastName: {
             type: String,
-            trim: true,
-            required: true,
-            maxlength: 32
+            required: true
         },
         email: {
             type: String,
-            trim: true,
             required: true,
             unique: true
         },
@@ -25,24 +21,20 @@ const UserSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        phoneNumber: {
+        address: {
             type: String,
-            trim: true,
-            maxlength: 12
+            required: true
         },
-        premium: {
-            type: Boolean,
-            default: false
-        },
-        purchaseHistory: {
-            type: Array,
-            default: []
-        },
-        listHistory: {
-            type: Array,
-            default: []
-        },
-        image: {}
+        phoneNumber: String,
+        premium: Boolean,
+        orderHistory: [{
+            type: ObjectId,
+            ref: 'Order'
+        }],
+        bidHistory: [{
+            type: ObjectId,
+            ref: 'Bid'
+        }]
     },
     {timestamps: true}
 );

@@ -1,6 +1,5 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-// TODO: subcategories?
 const categorySchema = new mongoose.Schema(
     {
         name: {
@@ -11,4 +10,4 @@ const categorySchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model("Category", categorySchema);
+module.exports = mongoose.model('Category', categorySchema);

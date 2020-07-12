@@ -1,5 +1,5 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -7,9 +7,11 @@ const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
 require('dotenv').config();
 
-const authentication = require("./routes/authentication")
-const user = require("./routes/user")
-const auction = require("./routes/auction")
+const auction = require('./routes/auction');
+const authentication = require('./routes/authentication');
+const category = require('./routes/category');
+const order = require('./routes/order');
+const user = require('./routes/user');
 
 // App
 const app = express();
@@ -36,9 +38,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
 // Routes
-app.use('/authentication', authentication);
-app.use('/users', user);
 app.use('/auctions', auction);
+app.use('/authentication', authentication);
+app.use('/categories', category);
+app.use('/orders', order);
+app.use('/users', user);
 
 // Server
 app.listen(port, () => {

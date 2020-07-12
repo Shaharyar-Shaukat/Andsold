@@ -5,19 +5,14 @@ exports.auctionById = (req, res, next, id) => {
     Auction.findById(id)
         .populate('category')
         .exec((err, auction) => {
-            if (err || !auction) {
-                return res.status(400).json({
-                    error: 'Auction not found'
-                });
-            }
+            if (!auction) return res.status(400).json({error: 'Auction not found'});
+            if (err) return errorHandler(res, err)
             req.auction = auction;
             next();
         });
 };
 
-// TODO: List auctions
-// TODO: Search
-
+// TODO: picture upload
 exports.create = (req, res) => {
     const auction = new Auction(req.body);
     auction.save((err, auction) => {

@@ -1,27 +1,30 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const auctionSchema = new mongoose.Schema(
     {
-        imagePath: {
-            type: String,
-            required: true
-        },
+        // TODO: Maybe follow this https://medium.com/@nitinpatel_20236/image-upload-via-nodejs-server-3fe7d3faa642
+        imagePath: String,
         title: {
             type: String,
             required: true
         },
         description: {
             type: String,
-            required: true
+            default: ''
         },
-        // TODO: connect Bids to bids Schema
-        bids: {
-            type: String,
-            required: true
+        highest_bid: {
+            type: ObjectId,
+            ref: 'Bid'
         },
         category: {
-            type: mongoose.Schema,
-            ref: "Category",
+            type: ObjectId,
+            ref: 'Category',
+            required: true
+        },
+        owner: {
+            type: ObjectId,
+            ref: 'User',
             required: true
         }
     },

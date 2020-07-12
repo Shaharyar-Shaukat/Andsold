@@ -5,7 +5,8 @@ const {errorHandler} = require('../helpers/dbErrorHandler');
 exports.categoryById = (req, res, next, id) => {
     Category.findById(id)
         .exec((err, category) => {
-            if (err || !category) return errorHandler(res, err);
+            if (!category) return res.status(400).json({error: 'Category not found'});
+            if (err) return errorHandler(res, err)
             req.category = category;
             next();
         });

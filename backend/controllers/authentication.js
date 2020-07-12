@@ -1,14 +1,13 @@
+const { errorHandler } = require('../helpers/dbErrorHandler');
 const User = require('../models/user');
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const {errorHandler} = require('../helpers/dbErrorHandler');
 
 exports.signup = (req, res) => {
     const user = new User(req.body);
     user.save((err, user) => {
         if (err) return errorHandler(res, err);
         user.password = undefined;
-        user.salt = undefined;
         res.json({user});
     });
 };
@@ -16,13 +15,12 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
     const {email, password} = req.body;
     User.findOne({email}, (err, user) => {
-        if (err || !user) return errorHandler(res, err);
+        if (!user) return res.status(404).json({error: 'Email does not exist'});
+        if (err) return errorHandler(res, err);
         bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) throw err;
             if (!isMatch) {
-                return res.status(401).json({
-                    error: 'Wrong Password'
-                });
+                return res.status(401).json({ error: 'Wrong Password' });
             } else {
                 // TODO: Tokens should expire, but should also get refreshed if the user is active.
                 const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
@@ -34,8 +32,7 @@ exports.signin = (req, res) => {
     });
 };
 
-// TODO: some routes need to be protected in the future
-const verifyJwt = (req, res, next) => {
+exports.verifyJwt = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
         const token = authHeader.split(' ')[1];

@@ -1,30 +1,30 @@
-const mongoose = require("mongoose");
-
-const BidSchema = new mongoose.Schema(
-    {
-        product: { type: mongoose.Schema, ref: "Auction" },
-        price: Number
-    }
-);
-
-const Bid = mongoose.model("Bid", BidSchema);
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const OrderSchema = new mongoose.Schema(
     {
-        products: [BidSchema],
-        transaction_id: {},
-        amount: { type: Number },
-        address: String,
+        auction: {
+            type: ObjectId,
+            ref: 'Auction',
+            required: true,
+            unique: true
+        },
+        transaction_id: {
+            type: String,
+            unique: true
+        },
         status: {
             type: String,
-            default: "Not processed",
-            enum: ["Not processed", "Processing", "Shipped", "Delivered", "Cancelled"]
+            default: 'Not processed',
+            enum: ['Not processed', 'Processing', 'Shipped', 'Delivered', 'Cancelled']
         },
-        updated: Date,
-        user: { type: mongoose.Schema, ref: "User" }
-    }
+        buyer: {
+            type: ObjectId,
+            ref: 'User',
+            required: true
+        }
+    },
+    {timestamps: true}
 );
 
-const Order = mongoose.model("Order", OrderSchema);
-
-module.exports = { Order, CartItem };
+module.exports = mongoose.model('Order', OrderSchema);
