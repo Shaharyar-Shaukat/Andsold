@@ -3,24 +3,6 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-<<<<<<< HEAD
-const { errorHandler } = require('../helpers/dbErrorHandler');
-
-exports.signup = (req, res) => { 
-    //console.log("req.body", req.body);
-    const user = new User(req.body);
-    user.save((err, user) => {
-        if (err) {
-            return res.status(400).json({
-                error: errorHandler(err)
-                //error: err
-            });
-        }
-        user.salt = undefined;
-        user.hashed_password = undefined;
-        res.json({
-            user
-=======
 exports.signup = (req, res) => {
     const user = new User(req.body);
     user.save((err, user) => {
@@ -46,7 +28,6 @@ exports.signin = (req, res) => {
                 const {_id, name, email, role} = user;
                 return res.json({accessToken: token, user: {_id, email, name, role}});
             }
->>>>>>> john-dev
         });
     });
 };
