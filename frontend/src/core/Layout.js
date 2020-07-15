@@ -2,7 +2,7 @@ import React from 'react'
 import Menu from './Menu'
 
 
-const Signup = ({title='AndSold', description='The only auciton platform for you!', className ,children}) => (
+const Layout = ({title='AndSold', description='The only auciton platform for you!', className ,children}) => (
     <div>
         <Menu />
         <div className = "jumbotron">
@@ -15,4 +15,4 @@ const Signup = ({title='AndSold', description='The only auciton platform for you
     </div>
 );
 
-export default Signup;
+export default Layout;
