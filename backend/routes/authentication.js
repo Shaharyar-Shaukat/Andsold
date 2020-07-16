@@ -7,6 +7,5 @@ const { signup, signin, signout, authorize } = require('../controllers/authentic
 router.post('/signup', userSignupValidator, signup);
 router.post('/signin', signin);
 router.post('/signout', signout);
-// TODO: authorization
 
 module.exports = router;

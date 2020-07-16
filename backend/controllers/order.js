@@ -1,9 +1,11 @@
 const Order = require('../models/order');
-const { errorHandler } = require('../helpers/dbErrorHandler');
+const Auction = require('../models/auction');
+const mongoose = require('mongoose');
+const {errorHandler} = require('../helpers/dbErrorHandler');
 
 exports.orderById = (req, res, next, id) => {
     Order.findById(id)
-        .populate('auction', '_id name lastBid')
+        .populate('auction', '_id title lastBid')
         .exec((err, order) => {
             if (err || !order) return errorHandler(res, err);
             req.order = order;
@@ -11,14 +13,50 @@ exports.orderById = (req, res, next, id) => {
         });
 };
 
-// TODO: sorting?
-exports.list = (req, res) => {
-    Order.find()
-        .populate('buyer', '_id firstName lastName address')
-        .exec((err, orders) => {
-            if (err) return errorHandler(res, err);
-            res.json(orders);
-        });
+exports.listBought = (req, res) => {
+    Auction.aggregate([
+        {
+            $match: {"buyer": mongoose.Types.ObjectId(req.auth._id)}
+        },
+        {
+            $lookup: {
+                from: "orders",
+                localField: "_id",
+                foreignField: "auction",
+                as: "orders"
+            }
+        },
+        {
+            $replaceRoot: { newRoot: { $arrayElemAt: [ "$orders", 0 ] }}
+        },
+        { $project: { orders: 0 } }
+    ], function(err, auctions) {
+        if (err) return errorHandler(res, err);
+        res.json(auctions.orders);
+    });
+};
+
+exports.listSold = (req, res) => {
+    Auction.aggregate([
+        {
+            $match: {"owner": mongoose.Types.ObjectId(req.auth._id)}
+        },
+        {
+            $lookup: {
+                from: "orders",
+                localField: "_id",
+                foreignField: "auction",
+                as: "orders"
+            }
+        },
+        {
+            $replaceRoot: { newRoot: { $arrayElemAt: [ "$orders", 0 ] }}
+        },
+        { $project: { orders: 0 } }
+    ], function(err, auctions) {
+        if (err) return errorHandler(res, err);
+        res.json(auctions);
+    });
 };
 
 exports.create = (req, res) => {

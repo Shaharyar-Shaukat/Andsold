@@ -50,8 +50,6 @@ exports.authenticate = (req, res, next) => {
 };
 
 exports.authorize = (req, res, next) => {
-    prof = req.profile;
-    id = req.auth._id
     let authorized = req.profile && req.profile._id.equals(req.auth._id);
     if (!authorized) return res.status(403).json({ error: 'Access denied' });
     next();

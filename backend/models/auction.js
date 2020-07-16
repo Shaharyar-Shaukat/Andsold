@@ -12,9 +12,13 @@ const auctionSchema = new mongoose.Schema(
             type: String,
             default: ''
         },
-        highest_bid: {
+        price: {
+            type: Number,
+            required: true
+        },
+        buyer: {
             type: ObjectId,
-            ref: 'Bid'
+            ref: 'User'
         },
         category: {
             type: ObjectId,
@@ -29,5 +33,6 @@ const auctionSchema = new mongoose.Schema(
     },
     {timestamps: true}
 );
+
 
 module.exports = mongoose.model('Auction', auctionSchema);

@@ -13,7 +13,8 @@ exports.auctionById = (req, res, next, id) => {
 };
 
 exports.create = (req, res) => {
-    req.body.imagePath = req.file.path
+    req.body.imagePath = req.file.path;
+    req.body.owner = req.params.userId;
     const auction = new Auction(req.body);
     auction.save((err, auction) => {
         if (err) return errorHandler(res, err);

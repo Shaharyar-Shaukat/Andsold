@@ -26,15 +26,7 @@ const UserSchema = new mongoose.Schema(
             required: true
         },
         phoneNumber: String,
-        premium: Boolean,
-        orderHistory: [{
-            type: ObjectId,
-            ref: 'Order'
-        }],
-        bidHistory: [{
-            type: ObjectId,
-            ref: 'Bid'
-        }]
+        premium: Boolean
     },
     {timestamps: true}
 );
