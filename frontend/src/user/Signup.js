@@ -1,16 +1,4 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import { Link } from 'react-router-dom';
-import Layout from '../core/Layout';
-import { signup } from '../auth';
-
-const Signup = () => {
-    const [values, setValues] = useState({
-        firstName: '',
-        lastName:'',
-        email: '',
-        address:'',
-=======
 import Layout from "../core/Layout";
 import { Link } from 'react-router-dom';
 import { signup } from '../auth';
@@ -22,17 +10,12 @@ const Signup = () => {
         lastName: '',
         address: '',
         email: '',
->>>>>>> upstream/dev-shaukat
         password: '',
         error: '',
         success: false
     });
 
-<<<<<<< HEAD
-    const { firstName,lastName, email, address, password, success, error } = values;
-=======
     const { firstName, lastName, address, email, password, success, error } = values;
->>>>>>> upstream/dev-shaukat
 
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value });
@@ -41,28 +24,17 @@ const Signup = () => {
     const clickSubmit = event => {
         event.preventDefault();
         setValues({ ...values, error: false });
-<<<<<<< HEAD
-        signup({ firstName,lastName, email,address, password }).then(data => {
-=======
         signup({ firstName, lastName, address, email, password }).then(data => {
->>>>>>> upstream/dev-shaukat
             if (data.error) {
                 setValues({ ...values, error: data.error, success: false });
             } else {
                 setValues({
                     ...values,
                     firstName: '',
-<<<<<<< HEAD
-                    lastName:'',
-                    email: '',
-                    password: '',
-                    address:'',
-=======
                     lastName: '',
                     address: '',
                     email: '',
                     password: '',
->>>>>>> upstream/dev-shaukat
                     error: '',
                     success: true
                 });
@@ -70,10 +42,6 @@ const Signup = () => {
         });
     };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> upstream/dev-shaukat
     const signUpForm = () => (
         <form>
             <div className="form-group">
@@ -87,15 +55,6 @@ const Signup = () => {
             </div>
 
             <div className="form-group">
-<<<<<<< HEAD
-                <label className="text-muted">Email</label>
-                <input onChange={handleChange('email')} type="email" className="form-control" value={email} />
-            </div>
-
-            <div className="form-group">
-                <label className="text-muted">Address</label>
-                <input onChange={handleChange('address')} type="text" className="form-control" value={address} />
-=======
                 <label className="text-muted">Address</label>
                 <input onChange={handleChange('address')} type="text" className="form-control" value={address} />
             </div>
@@ -103,7 +62,6 @@ const Signup = () => {
             <div className="form-group">
                 <label className="text-muted">Email</label>
                 <input onChange={handleChange('email')} type="email" className="form-control" value={email} />
->>>>>>> upstream/dev-shaukat
             </div>
 
             <div className="form-group">
@@ -127,18 +85,6 @@ const Signup = () => {
             New account is created. Please <Link to="/signin">Signin</Link>
         </div>
     );
-<<<<<<< HEAD
-
-    return (
-        <Layout
-            title="Signup"
-            description="Signup to Node React E-commerce App"
-            className="container col-md-8 offset-md-2"
-        >
-            {showSuccess()}
-            {showError()}
-            {signUpForm()}
-=======
     return (
         <Layout
             title="SignUp"
@@ -148,13 +94,8 @@ const Signup = () => {
             {signUpForm()}
             {JSON.stringify(values)}
 
->>>>>>> upstream/dev-shaukat
         </Layout>
     );
 };
 
-<<<<<<< HEAD
 export default Signup;
-=======
-export default Signup;
->>>>>>> upstream/dev-shaukat
