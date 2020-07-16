@@ -1,79 +1,101 @@
-import React,{useState} from 'react'
-import Layout from '../core/Layout'
-import { Mailer } from 'nodemailer-react'
-import {Link} from 'react-router-dom';
-import {signup} from '../auth'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Layout from '../core/Layout';
+import { signup } from '../auth';
 
-var nodemailer = require('nodemailer');
-var id=require('./conf.json')
-const Signup = () =>{
+const Signup = () => {
+    const [values, setValues] = useState({
+        firstName: '',
+        lastName:'',
+        email: '',
+        address:'',
+        password: '',
+        error: '',
+        success: false
+    });
 
-    const [val,setVal] = useState({
-        name : '',
-        email : '',
-        password : '',
-        error : '',
-        success : false
-    })
-
-    const {name,email,password,success,error} = val
+    const { firstName,lastName, email, address, password, success, error } = values;
 
     const handleChange = name => event => {
-        setVal({...val, error :false, [name] : event.target.value})
-    }
+        setValues({ ...values, error: false, [name]: event.target.value });
+    };
 
-    const submit = (event) =>{
-        event.preventDefault()
-        setVal({ ...val, error: false });
-        signup({name,email,password}).then(data =>{
-            if (data.error){
-                setVal({...val, error: data.error,success:false})
-            }else{
-                setVal({...val,name:'',email:'',password:'', error:'',success:true})
+    const clickSubmit = event => {
+        event.preventDefault();
+        setValues({ ...values, error: false });
+        signup({ firstName,lastName, email,address, password }).then(data => {
+            if (data.error) {
+                setValues({ ...values, error: data.error, success: false });
+            } else {
+                setValues({
+                    ...values,
+                    firstName: '',
+                    lastName:'',
+                    email: '',
+                    password: '',
+                    address:'',
+                    error: '',
+                    success: true
+                });
             }
-        })
-    }
+        });
+    };
 
-    const showerr = () =>(
-        <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
-        {error}
-    </div>
-    )
-
-    const showsuccess = () =>(
-        <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
-            New account is created. Please <Link to="/signin">Signin</Link>
-        </div>
-    )
-
-    
-
-    const signupForm = () =>( <form>
-            <div className='form-group'>
-                <label className='test-muted'>Name</label>
-                <input onChange={handleChange('name')} type='text' className='form-control' value={name} />
+    const signUpForm = () => (
+        <form>
+            <div className="form-group">
+                <label className="text-muted">First Name</label>
+                <input onChange={handleChange('firstName')} type="text" className="form-control" value={firstName} />
             </div>
 
-            <div className='form-group'>
-                <label className='test-muted'>E-mail</label>
-                <input onChange={handleChange('email')} type='email' className='form-control' value={email}/>
+            <div className="form-group">
+                <label className="text-muted">Last Name</label>
+                <input onChange={handleChange('lastName')} type="text" className="form-control" value={lastName} />
             </div>
 
-            <div className='form-group'>
-                <label className='test-muted'>Password</label>
-                <input onChange={handleChange('password')} type='Password' className='form-control' value={password} />
+            <div className="form-group">
+                <label className="text-muted">Email</label>
+                <input onChange={handleChange('email')} type="email" className="form-control" value={email} />
             </div>
 
-            <button onClick={submit} className='btn btn-primary'>
+            <div className="form-group">
+                <label className="text-muted">Address</label>
+                <input onChange={handleChange('address')} type="text" className="form-control" value={address} />
+            </div>
+
+            <div className="form-group">
+                <label className="text-muted">Password</label>
+                <input onChange={handleChange('password')} type="password" className="form-control" value={password} />
+            </div>
+            <button onClick={clickSubmit} className="btn btn-primary">
                 Submit
             </button>
         </form>
-    )
-    return(<Layout title='Signup Page' description = 'The place to resell for a new start!' className='container col-md-8 offset-md-2'>
-        {showsuccess()}
-        {showerr()}
-        {signupForm()}
-                
-        </Layout>)
+    );
+
+    const showError = () => (
+        <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+            {error}
+        </div>
+    );
+
+    const showSuccess = () => (
+        <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
+            New account is created. Please <Link to="/signin">Signin</Link>
+        </div>
+    );
+
+    return (
+        <Layout
+            title="Signup"
+            description="Signup to Node React E-commerce App"
+            className="container col-md-8 offset-md-2"
+        >
+            {showSuccess()}
+            {showError()}
+            {signUpForm()}
+        </Layout>
+    );
 };
+
 export default Signup;
