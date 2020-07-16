@@ -2,7 +2,7 @@ import { API } from '../Config'
 
 
 export const signup = (user) => {
-    return fetch(`${API}authentication/signup`, {//URL = backend api url replace followed by the method and headers/body for the request 
+    return fetch(`http://localhost:8000/authentication/signup`, {//URL = backend api url replace followed by the method and headers/body for the request 
         method: 'POST',
         headers: {
             Accept: 'applicaiton/json',
