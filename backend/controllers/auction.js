@@ -12,6 +12,17 @@ exports.auctionById = (req, res, next, id) => {
         });
 };
 
+exports.list = (req, res) => {
+    Auction.find()
+        .populate('category')
+        .sort([[req.query.sortBy, req.query.order]])
+        .limit(parseInt(req.query.limit))
+        .exec((err, products) => {
+            if (err) return res.status(400).json({error: 'No auctions found'})
+            res.json(products);
+        });
+};
+
 exports.create = (req, res) => {
     req.body.imagePath = req.file.path;
     req.body.owner = req.params.userId;
