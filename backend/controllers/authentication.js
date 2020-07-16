@@ -25,8 +25,8 @@ exports.signin = (req, res) => {
                 // TODO: Tokens should expire, but should also get refreshed if the user is active.
                 const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
                 res.cookie('t', token, {expire: new Date() + 9999});
-                const {_id, name, email, role} = user;
-                return res.json({accessToken: token, user: {_id, email, name, role}});
+                const {_id, firstName,lastName, address,email} = user;
+                return res.json({accessToken: token, user: {_id, email, firstName,lastName, address}});
             }
         });
     });
