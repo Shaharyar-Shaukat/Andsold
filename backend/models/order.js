@@ -17,11 +17,6 @@ const OrderSchema = new mongoose.Schema(
             type: String,
             default: 'Not processed',
             enum: ['Not processed', 'Processing', 'Shipped', 'Delivered', 'Cancelled']
-        },
-        buyer: {
-            type: ObjectId,
-            ref: 'User',
-            required: true
         }
     },
     {timestamps: true}

@@ -32,7 +32,7 @@ exports.signin = (req, res) => {
     });
 };
 
-exports.verifyJwt = (req, res, next) => {
+exports.authenticate = (req, res, next) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
         const token = authHeader.split(' ')[1];
@@ -40,7 +40,8 @@ exports.verifyJwt = (req, res, next) => {
             if (err) {
                 return res.sendStatus(403);
             }
-            req.user = user;
+            req.auth = user;
+            req.isAuthenticated = true;
             next();
         });
     } else {
@@ -48,7 +49,11 @@ exports.verifyJwt = (req, res, next) => {
     }
 };
 
-// TODO: isAdmin for user endpoint
+exports.authorize = (req, res, next) => {
+    let authorized = req.profile && req.profile._id.equals(req.auth._id);
+    if (!authorized) return res.status(403).json({ error: 'Access denied' });
+    next();
+};
 
 exports.signout = (req, res) => {
     res.clearCookie('t');

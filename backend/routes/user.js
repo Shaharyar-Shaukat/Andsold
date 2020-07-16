@@ -2,14 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const { userById, read, update, remove } = require('../controllers/user');
-const { verifyJwt } = require('../controllers/authentication');
-
-// TODO: List users?
+const { authenticate, authorize } = require('../controllers/authentication');
 
 // no 'create' because this is handled by the authentication controller
-router.get('/:userId', verifyJwt, read);
-router.put('/:userId', verifyJwt, update);
-router.delete('/:userId', verifyJwt, remove);
+router.get('/:userId', authenticate, authorize, read);
+router.put('/:userId', authenticate, authorize, update);
+router.delete('/:userId', authenticate, authorize, remove);
 
 router.param('userId', userById);
 
