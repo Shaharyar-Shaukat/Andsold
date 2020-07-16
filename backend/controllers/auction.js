@@ -60,8 +60,9 @@ exports.remove = (req, res) => {
 
 exports.bid = (req, res) => {
     Auction.findOneAndUpdate(
-        {_id: req.auction._id, buyer: {$ne: req.auth._id}, price: {$st: req.body.price}},
-        { $set: { status: req.body.price, buyer: req.auth._id } },
+        {_id: req.auction._id, buyer: {$ne: req.auth._id}, price: {$lt: req.body.price}},
+        { $set: { price: req.body.price, buyer: req.auth._id } },
+        {new: true},
         (err, order) => {
         if (err) {
             return res.status(400).json({
