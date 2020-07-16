@@ -12,8 +12,8 @@ exports.auctionById = (req, res, next, id) => {
         });
 };
 
-// TODO: picture upload
 exports.create = (req, res) => {
+    req.body.imagePath = req.file.path
     const auction = new Auction(req.body);
     auction.save((err, auction) => {
         if (err) return errorHandler(res, err);
