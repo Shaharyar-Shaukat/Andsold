@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { API } from '../Config'
 
 
@@ -57,6 +58,64 @@ export const signout = (next) => {
             .catch(err => console.log(err))
     }
 }
+=======
+export const signup = user => {
+    return fetch(`http://localhost:8000/authentication/signup`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+
+export const signin = user => {
+    return fetch(`http://localhost:8000/authentication/signin`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+export const signout = next => {
+    if (typeof window !== 'undefined') {
+        localStorage.removeItem('jwt');
+        next();
+        return fetch(`localhost:8000/authentication/signout`, {
+            method: 'GET'
+        })
+            .then(response => {
+                console.log('signout', response);
+            })
+            .catch(err => console.log(err));
+    }
+};
+
+export const authenticate = (data, next) => {
+    if (typeof window !== 'undefined') {
+        localStorage.setItem('jwt', JSON.stringify(data));
+        next();
+    }
+};
+
+>>>>>>> upstream/dev-shaukat
 
 export const isAuthenticated = () => {
     if (typeof window == 'undefined') {
@@ -67,4 +126,8 @@ export const isAuthenticated = () => {
     } else {
         return false;
     }
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> upstream/dev-shaukat
