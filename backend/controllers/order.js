@@ -5,7 +5,7 @@ const {errorHandler} = require('../helpers/dbErrorHandler');
 
 exports.orderById = (req, res, next, id) => {
     Order.findById(id)
-        .populate('auction', '_id title lastBid')
+        .populate('auction')
         .exec((err, order) => {
             if (err || !order) return errorHandler(res, err);
             req.order = order;

@@ -1,5 +1,5 @@
 export const createCategory = (userId, token, category) => {
-    return fetch(`http://localhost:8000/categories/create/${userId}`, {
+    return fetch(`http://localhost:8000/categories/create`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -27,7 +27,7 @@ export const getCategories = () => {
 };
 
 export const createAuction = (userId, token, product) => {
-    return fetch(`http://localhost:8000/auctions/create/${userId}`, {
+    return fetch(`http://localhost:8000/auctions/create`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
