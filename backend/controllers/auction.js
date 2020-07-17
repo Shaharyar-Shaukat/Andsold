@@ -24,6 +24,11 @@ exports.list = (req, res) => {
 };
 
 exports.create = (req, res) => {
+    // Handle backened 
+    if(!req.body.category) return res.status(400).json({error: 'Category Required'});
+    if(!req.body.title) return res.status(400).json({error: 'Title Required'});
+    if (!req.file) return res.status(400).json({error: 'Product Image Required'});
+
     req.body.imagePath = req.file.path;
     req.body.owner = req.params.userId;
     const auction = new Auction(req.body);
