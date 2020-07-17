@@ -2,40 +2,47 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
 require('dotenv').config();
 
+const auction = require('./routes/auction');
+const authentication = require('./routes/authentication');
+const category = require('./routes/category');
+const order = require('./routes/order');
+const user = require('./routes/user');
 
-// Import Routes
-const authenticationRoutes = require('./routes/authentication');
-
-// app
+// App
 const app = express();
 const port = process.env.PORT || 8000;
 
-// Database Connection
-
-// db
+// DB
 mongoose
-    .connect(process.env.DATABASE, {
-        useNewUrlParser: true,
-        useCreateIndex: true
-    })
-    .then(() => console.log('DB Connected'));
-    
-
-
+    .connect(
+        process.env.DATABASE,
+        {
+            useUnifiedTopology: true,
+            useNewUrlParser: true,
+            useCreateIndex: true
+        })
+    .then(() => console.log('DB Connected'))
+    .catch(err => console.log(err));
 
 // Middleware
-app.use(bodyParser.urlencoded());
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(expressValidator());
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(expressValidator());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cors());
 
-// Routes Middleware
-app.use('/api/authentication',authenticationRoutes);
+// Routes
+app.use('/auctions', auction);
+app.use('/authentication', authentication);
+app.use('/categories', category);
+app.use('/orders', order);
+app.use('/users', user);
 
 // Server
 app.listen(port, () => {
