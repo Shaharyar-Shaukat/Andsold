@@ -4,8 +4,8 @@ import Layout from './Layout';
 const Home = () => (
     <Layout
         title="AndSold"
-        description="Sell your used product"
-        className='container-fluid'>
+        description="Sell your used product">
+
     </Layout>
 );
 
