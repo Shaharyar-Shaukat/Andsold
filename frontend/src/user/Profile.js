@@ -52,7 +52,7 @@ const Profile = ({ match }) => {
 
     const redirectUser = (success) => {
         if (success) {
-            //alert(`Update is successful. `)
+            alert(`Update is successful. `)
 
             return <Redirect to="/" />
 
@@ -69,7 +69,6 @@ const Profile = ({ match }) => {
                 })
                 redirectUser(success)
                 //alert(`Action is ${success}`)
-               
             }
         })
     }
@@ -119,6 +118,7 @@ const Profile = ({ match }) => {
 
             <h2 className='md-4'>Profile Update</h2>
             {profileUpdate(premium,firstName, lastName, address, email)}
+
 
             {JSON.stringify(val)}
         </Layout>
