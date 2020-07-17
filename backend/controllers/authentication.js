@@ -49,6 +49,9 @@ exports.authenticate = (req, res, next) => {
     }
 };
 
+/*
+    Checks if the User ID set in URL path (:userId) is equal to the one that te JWT belongs to
+ */
 exports.authorize = (req, res, next) => {
     let authorized = req.profile && req.profile._id.equals(req.auth._id);
     if (!authorized) return res.status(403).json({ error: 'Access denied' });

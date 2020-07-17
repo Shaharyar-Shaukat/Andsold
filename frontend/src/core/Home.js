@@ -1,53 +1,71 @@
-import React, { useState, Component } from "react";
-import Layout from "./Layout";
-import slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
-import "slick-carousel/slick/slick-theme.css";
-const photos = [
-  {
-    name: "photo1",
-    url:'https://images.unsplash.com/photo-1594795576050-76e7077f1685?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
-  },
-  {
-    name: "photo2",
-    url:'https://images.unsplash.com/photo-1594800277934-8bf755112e0d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
-  },
-  {
-    name: "photo3",
-    url:'https://images.unsplash.com/photo-1594899756066-46964fff3add?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'
-  },
-];
-class Home extends Component {
-  state = {};
-  render() {
-      const settings={
-          dots: true,
-          fade: true,
-          infinte: true,
-          speed: 500,
-          slideToShow: 1,
-          arrow: true,
-          slidesToScroll: 1,
-          className: "slides"
-      }
-    return (
-      <div className="App">
-        <Layout title="AndSold" description="Sell your used product">
-            <slider {...settings}>
-            {photos.map((photo) => {
-                return(
-                    <div>
-                        <img width="100%" src={photo.url}/>
-                    </div>
-                )
-            })}
-            </slider>
-        </Layout>
-      </div>
-    );
-  }
-}
+import React, { useState, useEffect } from 'react';
+import Layout from './Layout';
+import { getAuctions } from '../auction/api';
+import CardBlock from '../component/CardBlock';
 
-// export default App;
+const Home = () => {
+
+    const [auctionsByPrice, setAuctionsByPrice] = useState([]);
+    const [auctionsByArrival, setAuctionsByArrival] = useState([]);
+    const [error, setError] = useState(false);
+
+    const loadAuctionsByPrice = () => {
+        getAuctions('price').then(data => {
+            if (data.error) {
+                setError(data.error);
+            } else {
+                setAuctionsByPrice(data);
+            }
+        });
+    };
+
+
+    const loadAuctionsByArrival = () => {
+        getAuctions('createdAt').then(data => {
+            console.log(data);
+            if (data.error) {
+                setError(data.error);
+            } else {
+                setAuctionsByArrival(data);
+            }
+        });
+    };
+
+    // Run the above method , when component mount or change state 
+    useEffect(() => {
+        loadAuctionsByPrice();
+        loadAuctionsByArrival();
+    }, []);
+
+
+    return (
+        <Layout
+            title="Andsold"
+            description="Andsold Auction site"
+            className="container-fluid"
+        >
+            {JSON.stringify(auctionsByArrival)}
+            <hr />
+            {JSON.stringify(auctionsByPrice)}
+            <h2 className="mb-4">New Auctions</h2>
+            <div className="row">
+                {auctionsByArrival.map((auction, i) => (
+                    <div key={i} className="col-3 mb-4">
+                        <CardBlock product={auction} />
+                    </div>
+                ))}
+            </div>
+
+            <h2 className="mb-4">Best Price</h2>
+            <div className="row">
+                {auctionsByPrice.map((auction, i) => (
+                    <div key={i} className="col-4 mb-3">
+                        <CardBlock product={auction} />
+                    </div>
+                ))}
+            </div>
+        </Layout>
+    );
+};
 
 export default Home;
