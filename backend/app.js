@@ -32,9 +32,11 @@ mongoose
 // Middleware
 app.use(express.json());
 app.use(expressValidator());
+app.use(express.static('upload/images'));
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
+// TODO: Do we even need this?
 app.use(cors());
 
 // Routes

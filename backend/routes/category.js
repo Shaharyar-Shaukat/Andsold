@@ -2,17 +2,17 @@ const express = require('express');
 const router = express.Router();
 
 const { categoryById, list, create, read, update, remove } = require('../controllers/category');
-const { userById } = require('../controllers/user');
-const { authenticate, authorize } = require('../controllers/authentication');
+const { authenticate } = require('../controllers/authentication');
 
+// list categories
 router.get('/list', list);
 
-router.post('/create/:userId', authenticate, create);
+// CRUD for categories
+router.post('/create', authenticate, create);
 router.get('/:categoryId', read);
-router.put('/:categoryId/:userId', authenticate, authorize, update);
-router.delete('/:categoryId/:userId', authenticate, authorize, remove);
+router.put('/:categoryId', authenticate, update);
+router.delete('/:categoryId', authenticate, remove);
 
 router.param('categoryId', categoryById);
-router.param('userId', userById);
 
 module.exports = router;

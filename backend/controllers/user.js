@@ -1,5 +1,6 @@
 const {errorHandler} = require('../helpers/dbErrorHandler');
 const User = require('../models/user');
+const Auction = require('../models/auction');
 
 exports.userById = (req, res, next, id) => {
     User.findById(id)
@@ -25,13 +26,18 @@ exports.update = (req, res) => {
 };
 
 exports.remove = (req, res) => {
-    User.findByIdAndDelete(req.profile._id, (err, user) => {
-        if (err) return errorHandler(res, err);
-        user.password = undefined;
-        res.json(user);
-    });
+    if (Auction.exists({buyer: req.profile})) {
+        return res.status(400).json({
+            message: 'Can not delete. There are auctions referencing this user!'
+        });
+    } else {
+        User.findByIdAndDelete(req.profile._id, (err, user) => {
+            if (err) return errorHandler(res, err);
+            user.password = undefined;
+            res.json(user);
+        });
+    }
 };
-
 //Fetch all suscribed users
 exports.listSub = (req, res) => {
     User.find({'email':{'premium': true}}, function(err,data){
