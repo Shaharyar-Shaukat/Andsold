@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const upload = multer({dest: 'uploads/images'});
 
-const { auctionById, list, create, read, update, remove, bid } = require('../controllers/auction');
+const { auctionById, list, create, read, update, remove, listRelatedAuction, bid, getImage } = require('../controllers/auction');
 const { authenticate } = require('../controllers/authentication');
 
 // list Items
@@ -14,9 +14,9 @@ router.post('/create', authenticate, upload.single('photo'), create);
 router.get('/:auctionId', read);
 router.put('/:auctionId', authenticate, update);
 router.delete('/:auctionId', authenticate, remove);
+router.get("/related/:auctionId", listRelatedAuction);
 
-// Bidding
-router.post('/:auctionId/bid', authenticate, bid);
+router.get('/image/:auctionId', getImage);
 
 router.param('auctionId', auctionById);
 
