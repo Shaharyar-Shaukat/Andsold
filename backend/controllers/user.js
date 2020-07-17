@@ -31,3 +31,11 @@ exports.remove = (req, res) => {
         res.json(user);
     });
 };
+
+//Fetch all suscribed users
+exports.listSub = (req, res) => {
+    User.find({'email':{'premium': true}}, function(err,data){
+            if(err) console.log("can't get user emails for mass mailing")
+                res.json(data)
+        })
+    };

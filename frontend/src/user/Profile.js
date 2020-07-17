@@ -3,7 +3,7 @@ import Layout from "../core/Layout";
 import avatar from "../images/avtar.png";
 import { isAuthenticated } from "../auth";
 import { Redirect } from 'react-router-dom';
-import { read, update, updateUser } from './apiUser'
+import { read, update, updateUser,readName } from './apiUser'
 
 const Profile = ({ match }) => {
     const [val, setval] = useState({
@@ -109,6 +109,20 @@ const Profile = ({ match }) => {
             </form>
         )
     }
+  
+    const names = () => {
+        read(match.params.userid, accessToken).then(data => {
+            if (data.error) {
+                console.log("ERROR IN FETCH")
+                return -999;
+            } else {
+                //alert("flags")
+                return (<div>{JSON.stringify(data)} </div>)
+
+                //alert(`Flag${premium}`)
+            }
+        })
+    }
 
     return (
         <Layout
@@ -119,8 +133,8 @@ const Profile = ({ match }) => {
             <h2 className='md-4'>Profile Update</h2>
             {profileUpdate(premium,firstName, lastName, address, email)}
 
-
-            {JSON.stringify(val)}
+            {names()}
+            
         </Layout>
     )
 };
