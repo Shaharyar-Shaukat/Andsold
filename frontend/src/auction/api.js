@@ -42,3 +42,13 @@ export const createAuction = (userId, token, product) => {
             console.log(err);
         });
 };
+
+export const getAuctions = sortBy => {
+    return fetch(`http://localhost:8000/auctions/list?sortBy=${sortBy}&order=desc&limit=8`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
