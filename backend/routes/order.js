@@ -4,9 +4,11 @@ const router = express.Router();
 const { orderById, listBought, listSold, create, read, update, remove } = require('../controllers/order');
 const { authenticate } = require('../controllers/authentication')
 
+// List bought or sold items
 router.get('/list/bought', authenticate, listBought);
 router.get('/list/sold', authenticate, listSold);
 
+// CRUD for Orders
 router.post('/create', authenticate, create);
 router.get('/:orderId', authenticate, read);
 router.put('/:orderId', authenticate, update);
