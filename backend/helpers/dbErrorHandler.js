@@ -15,7 +15,7 @@ const uniqueMessage = error => {
             fieldName.slice(1) +
             " already exists";
     } catch (ex) {
-        output = "Unique field already exists";
+        output = "Unique already exists";
     }
 
     return output;
