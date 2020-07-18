@@ -52,6 +52,7 @@ const Home = () => {
                 {auctionsByArrival.map((auction, i) => (
                     <div key={i} className="col-3 mb-4">
                         <CardBlock product={auction} />
+                            
                     </div>
                 ))}
             </div>

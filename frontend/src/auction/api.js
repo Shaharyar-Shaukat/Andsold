@@ -52,3 +52,13 @@ export const getAuctions = sortBy => {
         })
         .catch(err => console.log(err));
 };
+
+export const getAuctionsById = UserId => {
+    return fetch(`http://localhost:8000/auctions/${UserId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

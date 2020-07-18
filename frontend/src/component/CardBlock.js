@@ -16,11 +16,11 @@ const CardBlock = ({ product }) => {
                 <p className="black-9">Category: {product.category && product.category.name}</p>
                 <p className="black-8">Added on : {product.timestamps}</p>
                 <br />
-                <Link to="/">
-                    <button className="btn btn-outline-primary mt-2 mb-2">
+            
+                    <Link className="btn btn-outline-primary mt-2 mb-2" to={`/ViewAuction?id=${product._id}`}>
                         View Auction
-                    </button>
-                </Link>
+                    </Link>
+              
                 <button className="btn btn-outline-warning mt-2 mb-2">
                         Bid
                 </button>
