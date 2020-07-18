@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import CardBlock from '../component/CardBlock';
+import CardBlock from '../components/other/CardBlock';
 import { getCategories, getFilteredAuctions } from "../auction/api";
-import Checkbox from '../component/Checkbox';
-import { prices } from "../component/PriceRange";
-import RadioBox from "../component/RadioBox";
+import Checkbox from '../components/other/Checkbox';
+import { prices } from "../components/other/PriceRange";
+import RadioBox from "../components/other/RadioBox";
 
 
 const LandPage = () => {

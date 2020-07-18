@@ -1,9 +1,31 @@
-import React, { useState } from 'react';
-import Layout from "../core/Layout";
-import { Link } from 'react-router-dom';
-import { signup } from '../auth';
+import React from "react";
+import {makeStyles} from "@material-ui/core/styles";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Icon from "@material-ui/core/Icon";
+import Email from "@material-ui/icons/Email";
+import People from "@material-ui/icons/People";
+import Header from "../components/Header/Header.js";
+import HeaderLinks from "../components/Header/HeaderLinks.js";
+import GridContainer from "../components/Grid/GridContainer.js";
+import GridItem from "../components/Grid/GridItem.js";
+import Button from "../components/CustomButtons/Button.js";
+import Card from "../components/Card/Card.js";
+import CardBody from "../components/Card/CardBody.js";
+import CardHeader from "../components/Card/CardHeader.js";
+import CardFooter from "../components/Card/CardFooter.js";
+import CustomInput from "../components/CustomInput/CustomInput.js";
 
-const Signup = () => {
+import styles from "../assets/jss/material-kit-react/views/loginPage.js";
+import image from "../assets/img/login.jpg";
+import {signup} from '../auth';
+import {Home} from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+const useStyles = makeStyles(styles);
+
+export default function Signup(props) {
 
     const [values, setValues] = useState({
         firstName: '',
@@ -17,7 +39,7 @@ const Signup = () => {
 
     const { firstName, lastName, address, email, password, success, error } = values;
 
-    const handleChange = name => event => {
+    const handleChange = (event, name) => {
         setValues({ ...values, error: false, [name]: event.target.value });
     };
 
@@ -41,40 +63,6 @@ const Signup = () => {
             }
         });
     };
-
-
-    const signUpForm = () => (
-        <form>
-            <div className="form-group">
-                <label className="text-muted">First Name</label>
-                <input onChange={handleChange('firstName')} type="text" className="form-control" value={firstName} />
-            </div>
-
-            <div className="form-group">
-                <label className="text-muted">Last Name</label>
-                <input onChange={handleChange('lastName')} type="text" className="form-control" value={lastName} />
-            </div>
-
-            <div className="form-group">
-                <label className="text-muted">Address</label>
-                <input onChange={handleChange('address')} type="text" className="form-control" value={address} />
-            </div>
-
-            <div className="form-group">
-                <label className="text-muted">Email</label>
-                <input onChange={handleChange('email')} type="email" className="form-control" value={email} />
-            </div>
-
-            <div className="form-group">
-                <label className="text-muted">Password</label>
-                <input onChange={handleChange('password')} type="password" className="form-control" value={password} />
-            </div>
-            <button onClick={clickSubmit} className="btn btn-primary">
-                Submit
-            </button>
-        </form>
-    );
-
     const showError = () => (
         <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
             {error}
@@ -86,17 +74,137 @@ const Signup = () => {
             New account is created. Please <Link to="/signin">Signin</Link>
         </div>
     );
+
+    const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+    setTimeout(function () {
+        setCardAnimation("");
+    }, 700);
+    const classes = useStyles();
+    const {...rest} = props;
     return (
-        <Layout
-            title="SignUp"
-            description="SignUp to AndSold" className="container col-md-6 offset-md-3">
-            {showSuccess()}
-            {showError()}
-            {signUpForm()}
-            {JSON.stringify(values)}
-
-        </Layout>
+        <div>
+            <Header
+                absolute
+                color="transparent"
+                brand="AndSold"
+                rightLinks={<HeaderLinks/>}
+                {...rest}
+            />
+            <div
+                className={classes.pageHeader}
+                style={{
+                    backgroundImage: "url(" + image + ")",
+                    backgroundSize: "cover",
+                    backgroundPosition: "top center"
+                }}
+            >
+                <div className={classes.container}>
+                    <GridContainer justify="center">
+                        <GridItem xs={12} sm={12} md={4}>
+                            <Card className={classes[cardAnimaton]}>
+                                <form className={classes.form}>
+                                    <CardHeader color="primary" className={classes.cardHeader}>
+                                        <h4>Sign Up</h4>
+                                    </CardHeader>
+                                    <p className={classes.divider}>And Start Bidding</p>
+                                    <CardBody>
+                                        <CustomInput
+                                            labelText="First Name..."
+                                            id="firstName"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                            inputProps={{
+                                                onChange: (event) => handleChange(event, "firstName"),
+                                                type: "text",
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <People className={classes.inputIconsColor}/>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+                                        <CustomInput
+                                            labelText="Last Name..."
+                                            id="lastName"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                            inputProps={{
+                                                onChange: (event) => handleChange(event, "lastName"),
+                                                type: "text",
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <People className={classes.inputIconsColor}/>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+                                        <CustomInput
+                                            labelText="Address"
+                                            id="address"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                            inputProps={{
+                                                onChange: (event) => handleChange(event, "address"),
+                                                type: "text",
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <Home className={classes.inputIconsColor}/>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+                                        <CustomInput
+                                            labelText="Email..."
+                                            id="email"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                            inputProps={{
+                                                onChange: (event) => handleChange(event, "email"),
+                                                type: "email",
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <Email className={classes.inputIconsColor}/>
+                                                    </InputAdornment>
+                                                )
+                                            }}
+                                        />
+                                        <CustomInput
+                                            labelText="Password"
+                                            id="password"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                            inputProps={{
+                                                onChange: (event) => handleChange(event, "password"),
+                                                type: "password",
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        <Icon className={classes.inputIconsColor}>
+                                                            lock_outline
+                                                        </Icon>
+                                                    </InputAdornment>
+                                                ),
+                                                autoComplete: "off"
+                                            }}
+                                        />
+                                    </CardBody>
+                                    {showSuccess()}
+                                    {showError()}
+                                    <CardFooter className={classes.cardFooter}>
+                                        <Button onClick={clickSubmit} simple color="primary" size="lg">
+                                            Get started
+                                        </Button>
+                                    </CardFooter>
+                                </form>
+                            </Card>
+                        </GridItem>
+                    </GridContainer>
+                </div>
+            </div>
+        </div>
     );
-};
-
-export default Signup;
+}

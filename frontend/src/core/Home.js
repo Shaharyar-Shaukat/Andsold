@@ -1,94 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import Layout from './Layout';
-import {getAuctions,getUser} from '../auction/api';
-import CardBlock from '../component/CardBlock';
-import { isAuthenticated } from '../auth';
+import React from "react";
+import classNames from "classnames";
+import { makeStyles } from "@material-ui/core/styles";
 
-// const getAuctions = (sortBy) => {
-//     return fetch(`http://localhost:8000/auctions/list?sortBy=${sortBy}&order=desc&limit=8`, {
-//         method: "GET"
-//     })
-//         .then(response => {
-//             return response.json();
-//         })
-//         .catch(err => console.log(err));
-// };
-import SearchBar from '../component/SearchBar';
+import Header from "../components/Header/Header.js";
+import GridContainer from "../components/Grid/GridContainer.js";
+import GridItem from "../components/Grid/GridItem.js";
+import Button from "../components/CustomButtons/Button.js";
+import HeaderLinks from "../components/Header/HeaderLinks.js";
+import Parallax from "../components/Parallax/Parallax.js";
 
-const Home = () => {
+import styles from "../assets/jss/material-kit-react/views/landingPage.js";
 
-    const { user, accessToken } = isAuthenticated();
-    const [auctionsByPrice, setAuctionsByPrice] = useState([]);
-    const [auctionsByArrival, setAuctionsByArrival] = useState([]);
-    const [userData, setuserData] = useState([]);
-    const [error, setError] = useState(false);
+import ProductSection from "../core/Sections/ProductSection.js";
+import ItemSection from "../core/Sections/ItemSection.js";
 
-     const loadUsers = ()=>{
-         getUser(user, accessToken).then(data => {
-             if (data.error) {   
-                 setError(data.error);
-             } else {
-                var emails = data.map(d => d.email+" , ")
-                 setuserData(emails);
-             }
-         });
-     }
-    const loadAuctionsByPrice = () => {
-        getAuctions('price').then(data => {
-            if (data.error) {
-                setError(data.error);
-            } else {
-                setAuctionsByPrice(data);
-            }
-        });
-    };
+const dashboardRoutes = [];
 
+const useStyles = makeStyles(styles);
 
-    const loadAuctionsByArrival = () => {
-        getAuctions('createdAt').then(data => {
-            console.log(data);
-            if (data.error) {
-                setError(data.error);
-            } else {
-                setAuctionsByArrival(data);
-            }
-        });
-    };
-
-    // Run the above method , when component mount or change state 
-    useEffect(() => {
-        loadAuctionsByPrice();
-        loadAuctionsByArrival();
-        loadUsers();
-    }, []);
-
-
+export default function Home(props) {
+    const classes = useStyles();
+    const { ...rest } = props;
     return (
-        <Layout
-            title="Andsold"
-            description="Andsold Auction site"
-            className="container-fluid"
-        >
-              <SearchBar />
-            <h2 className="mb-4">New Auctions</h2>
-            <div className="row">
-                {auctionsByArrival.map((auction, i) => (
-                    <div key={i} className="col-2 mb-4">
-                        <CardBlock product={auction} />
-                    </div>
-                ))}
+        <div>
+            <Header
+                color="transparent"
+                routes={dashboardRoutes}
+                brand="AndSold"
+                rightLinks={<HeaderLinks />}
+                fixed
+                changeColorOnScroll={{
+                    height: 400,
+                    color: "white"
+                }}
+                {...rest}
+            />
+            <Parallax filter image={require("../assets/img/login.jpg")}>
+                <div className={classes.container}>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={6}>
+                            <h1 className={classes.title}>Broaden your Garage Sale Audience</h1>
+                            <h4>
+                                Each year, millions of americans throw away unused items or sell them for cheap on garage sales.
+                                Make more of your stuff by selling them to the people that really appreciate their value.
+                            </h4>
+                            <br />
+                            <Button
+                                color="danger"
+                                size="lg"
+                                href="/signup"
+                                rel="noopener noreferrer"
+                            >
+                                <i className="MuiButtonBase-root" />
+                                Register now
+                            </Button>
+                        </GridItem>
+                    </GridContainer>
+                </div>
+            </Parallax>
+            <div className={classNames(classes.main, classes.mainRaised)}>
+                <div className={classes.container}>
+                    <ProductSection />
+                    <ItemSection />
+                </div>
             </div>
-
-            <h2 className="mb-4">Best Price</h2>
-            <div className="row">
-                {auctionsByPrice.map((auction, i) => (
-                    <div key={i} className="col-2 mb-4">
-                        <CardBlock product={auction} />
-                    </div>
-                ))}
-            </div>
-        </Layout>
+        </div>
     );
-};
-
-export default Home;
+}
