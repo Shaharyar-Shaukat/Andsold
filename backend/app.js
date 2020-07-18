@@ -12,7 +12,7 @@ const authentication = require('./routes/authentication');
 const category = require('./routes/category');
 const order = require('./routes/order');
 const user = require('./routes/user');
-
+const mail = require('./routes/mail')
 // App
 const app = express();
 const port = process.env.PORT || 8000;
@@ -45,6 +45,7 @@ app.use('/authentication', authentication);
 app.use('/categories', category);
 app.use('/orders', order);
 app.use('/users', user);
+app.use('/mail', mail);
 
 // Server
 app.listen(port, () => {

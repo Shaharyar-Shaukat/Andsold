@@ -26,7 +26,10 @@ const UserSchema = new mongoose.Schema(
             required: true
         },
         phoneNumber: String,
-        premium: Boolean
+        premium: {
+            type:Boolean,
+            default: false
+        }
     },
     {timestamps: true}
 );
