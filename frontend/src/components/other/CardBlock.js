@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import CardImage from './CardImage'
+
+
 const CardBlock = ({ product }) => {
     const [data, setData] = useState({
         id: ""
@@ -8,6 +10,11 @@ const CardBlock = ({ product }) => {
     const handleChange = id => event => {
         setData({ ...data, [id]: 5});
     };
+
+
+
+
+
     return (
 
 
@@ -25,9 +32,9 @@ const CardBlock = ({ product }) => {
                         View Auction
                     </button>
                 </Link>
-                <button className="btn btn-outline-warning mt-2 mb-2">
-                    Bid
-                </button>
+                {/* <button className="btn btn-outline-warning mt-2 mb-2">
+                        Bid
+                </button> */}
             </div>
         </div>
 

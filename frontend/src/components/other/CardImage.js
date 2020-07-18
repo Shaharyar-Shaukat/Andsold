@@ -1,7 +1,7 @@
 import React from "react";
 
 const CardImage = ({item}) => (
-    <div className="product-img">
+    <div className="product-img ">
         <img
             src={`http://localhost:8000/auctions/image/${item}`}
             alt={item}
