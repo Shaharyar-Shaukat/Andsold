@@ -9,7 +9,7 @@ const AddCategory = () => {
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    // destructure user and token from localstorage
+    // destructure user and token from localstorage.
     const { user, accessToken } = isAuthenticated();
 
     const handleChange = e => {
