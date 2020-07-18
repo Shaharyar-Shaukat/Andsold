@@ -32,9 +32,9 @@ const CardBlock = ({ product }) => {
                         View Auction
                     </button>
                 </Link>
-                <button className="btn btn-outline-warning mt-2 mb-2">
+                {/* <button className="btn btn-outline-warning mt-2 mb-2">
                         Bid
-                </button>
+                </button> */}
             </div>
         </div>
 

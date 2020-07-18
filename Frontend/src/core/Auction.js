@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { readAuction, listRelatedAuction } from '../auction/api';
 import CardBlock from '../component/CardBlock';
+import SingleAuction from '../component/SingleAuction';
+
 
 const Auction = props => {
     const [product, setProduct] = useState({});
@@ -39,14 +41,14 @@ const Auction = props => {
         >
             <div className="row">
                 <div className="col-8">
-                    {product && product.description && <CardBlock product={product} showViewProductButton={false} />}
+                    {product && product.description && <SingleAuction product={product} showViewProductButton={false} />}
                 </div>
 
                 <div className="col-4">
                     <h4>Related products</h4>
                     {relatedProduct.map((p, i) => (
                         <div className="mb-3" key={i}>
-                            <CardBlock product={p} />
+                            <SingleAuction product={p} />
                         </div>
                     ))}
                 </div>
