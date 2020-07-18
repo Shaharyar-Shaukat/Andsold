@@ -82,28 +82,28 @@ const ListProduct = () => {
                     loading: false,
                     createdProduct: data.name
                 });
-                MailData+=data.name+", Price : "+data.price+" EURO, Description : "+data.description
+                MailData+=title+", Price : "+price+" EURO, Description : "+description
+                getUser(user._id, accessToken).then(data => {
+                    if (data.error) {   
+                        alert(data.error);
+                    } else {
+                        var emails = data.map(d => d.email+" , ")
+                        var message ={
+                            "list": String(emails),
+                            "data": String(MailData)
+                        }
+                         sendMail(user._id, accessToken,message).then(data=>{
+                             if(data.error){
+                                 alert(data.error)
+                             }else{  
+                                 alert("Auction is live!!")
+                             }
+                         })
+                    }
+                });
             }
         });
 
-        getUser(user._id, accessToken).then(data => {
-            if (data.error) {   
-                alert(data.error);
-            } else {
-                var emails = data.map(d => d.email+" , ")
-                var message ={
-                    "list": String(emails),
-                    "data": String(MailData)
-                }
-                 sendMail(user._id, accessToken,message).then(data=>{
-                     if(data.error){
-                         alert(data.error)
-                     }else{  
-                         alert("Auction is live!!")
-                     }
-                 })
-            }
-        });
 
     };
 

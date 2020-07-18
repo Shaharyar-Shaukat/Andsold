@@ -3,7 +3,7 @@ import Layout from "../core/Layout";
 import avatar from "../images/avtar.png";
 import { isAuthenticated } from "../auth";
 import { Redirect } from 'react-router-dom';
-import { read, update, updateUser,readName } from './apiUser'
+import { read, update, updateUser, readName } from './apiUser'
 
 const Profile = ({ match }) => {
     const [val, setval] = useState({
@@ -12,7 +12,7 @@ const Profile = ({ match }) => {
         email: '',
         address: '',
         password: '',
-        premium:false,
+        premium: false,
         error: false,//default vlaues
         success: false
     })
@@ -29,7 +29,7 @@ const Profile = ({ match }) => {
             if (data.error) {
                 setval({ ...val, error: true })
             } else {
-                setval({ ...val, firstName: data.firstName, lastName: data.lastName, address: data.address, premium : data.premium, email: data.email, success: true })
+                setval({ ...val, firstName: data.firstName, lastName: data.lastName, address: data.address, premium: data.premium, email: data.email, success: true })
                 //alert(`Flag${premium}`)
             }
         })
@@ -42,7 +42,7 @@ const Profile = ({ match }) => {
 
 
     const handleSuscribe = name => event => {
-        setval({ ...val, error: false, [name]: !premium})
+        setval({ ...val, error: false, [name]: !premium })
     };
 
 
@@ -51,12 +51,12 @@ const Profile = ({ match }) => {
     };
 
     const redirectUser = (success) => {
-            alert(`Update is successful. `)
-            return <Redirect to="/" />;
+        alert(`Update is successful. `)
+        return <Redirect to="/" />;
     };
     const clickSubmit = (event) => {
         event.preventDefault()
-        update(match.params.userid, accessToken, { premium,firstName, lastName, address, email }).then(data => {
+        update(match.params.userid, accessToken, { premium, firstName, lastName, address, email }).then(data => {
             if (data.error) {
                 alert(data.error);
             } else {
@@ -97,7 +97,7 @@ const Profile = ({ match }) => {
                     <input onChange={handleSuscribe('premium')} checked={premium} type="checkbox" class="custom-control-input" id="customSwitches" />
                     <label class="custom-control-label" for="customSwitches">Suscipion</label>
                 </div>
-                <br/>
+                <br />
 
                 <button onClick={clickSubmit} className="btn btn-primary">
                     Submit
@@ -105,7 +105,7 @@ const Profile = ({ match }) => {
             </form>
         )
     }
-  
+
     const names = () => {
         read(match.params.userid, accessToken).then(data => {
             if (data.error) {
@@ -127,10 +127,10 @@ const Profile = ({ match }) => {
             className=''>
 
             <h2 className='md-4'>Profile Update</h2>
-            {profileUpdate(premium,firstName, lastName, address, email)}
+            {profileUpdate(premium, firstName, lastName, address, email)}
 
             {names()}
-            
+
         </Layout>
     )
 };

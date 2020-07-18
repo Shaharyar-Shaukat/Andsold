@@ -1,10 +1,6 @@
 const Auction = require('../models/auction');
 const Order = require('../models/order');
 const {errorHandler} = require('../helpers/dbErrorHandler');
-//const getmail = require('./api')
-const User = require('../models/user');
-const {listSub} = require('./user')
-
 const fs = require('fs');
 
 
@@ -57,11 +53,9 @@ exports.create = (req, res) => {
     req.body.imagePath = req.file.path;
     req.body.owner = req.auth._id;
     const auction = new Auction(req.body);
-    auction.
     auction.save((err, auction) => {
         if (err) return errorHandler(res, err);
         res.json({auction});
-        const data = getmail()
     });
 };
 
@@ -73,10 +67,6 @@ exports.read = (req, res) => {
     return res.json(req.auction);
 };
 
-const getmail =()=>{
-    return listSub
-}
-
 
 /*
     Find and update the auction according to the param auctionId and update values according to req.body
@@ -86,12 +76,6 @@ exports.update = (req, res) => {
     Auction.findByIdAndUpdate(req.auction._id, {$set: req.body}, {new: true}, (err, auction) => {
         if (err) return errorHandler(res, err);
         res.json(auction);
-        var x
-        User.find({'premium': true}, function(err,data){
-            if(err) console.log("can't get user emails for mass mailing")
-                x = json(data)                
-        })
-
     });
 };
 
