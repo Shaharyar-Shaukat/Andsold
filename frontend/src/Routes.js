@@ -10,6 +10,7 @@ import Dashboard from './user/Dashboard';
 import AddCategory from './auction/AddCategory';
 import ListProduct from './auction/ListProduct';
 import ViewAuction from './auction/ViewAuction';
+import LandPage from './core/LandPage';
 
 
 
@@ -22,6 +23,7 @@ const Routes = () => {
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/" exact component={Home} />
+                <Route path="/auctions" exact component={LandPage} />
                 <PrivateRoute path="/dashboard" exact component={Dashboard} />
                 <PrivateRoute path="/create/category" exact component={AddCategory} />
                 <PrivateRoute path="/create/auction" exact component={ListProduct} />

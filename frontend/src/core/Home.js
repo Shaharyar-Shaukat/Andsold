@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { getAuctions } from '../auction/api';
 import CardBlock from '../component/CardBlock';
+import SearchBar from '../component/SearchBar';
 
 const Home = () => {
 
@@ -44,13 +45,11 @@ const Home = () => {
             description="Andsold Auction site"
             className="container-fluid"
         >
-            {JSON.stringify(auctionsByArrival)}
-            <hr />
-            {JSON.stringify(auctionsByPrice)}
+              <SearchBar />
             <h2 className="mb-4">New Auctions</h2>
             <div className="row">
                 {auctionsByArrival.map((auction, i) => (
-                    <div key={i} className="col-3 mb-4">
+                    <div key={i} className="col-2 mb-4">
                         <CardBlock product={auction} />
                             
                     </div>
@@ -60,7 +59,7 @@ const Home = () => {
             <h2 className="mb-4">Best Price</h2>
             <div className="row">
                 {auctionsByPrice.map((auction, i) => (
-                    <div key={i} className="col-4 mb-3">
+                    <div key={i} className="col-2 mb-4">
                         <CardBlock product={auction} />
                     </div>
                 ))}

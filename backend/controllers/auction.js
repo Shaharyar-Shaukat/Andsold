@@ -151,3 +151,104 @@ exports.getImage = (req, res) => {
     });
     
 };
+
+
+exports.listRelatedAuction = (req, res) => {
+    let limit = req.query.limit ? parseInt(req.query.limit) : 4;
+    Auction.find({ _id: { $ne: req.auction }, category: req.auction.category })
+        .limit(limit)
+        .populate('category', '_id name')
+        .exec((err, auctions) => {
+            if (err || auctions.length == 0) {
+                return res.status(400).json({
+                    error: 'Auction not found'
+                });
+            }
+            res.json(auctions);
+        });
+};
+
+
+exports.getImage = (req, res) => {
+    let path = req.auction.imagePath
+    fs.readFile(path, (err, content)=> {
+        if (err) {
+            res.writeHead(400, {'Content-type':'text/html'})
+            console.log(err);
+            res.end("No such image");
+        } else {
+            //specify the content type in the response will be an image
+            res.writeHead(200,{'Content-type':'image/png'});
+            res.end(content);
+        }
+
+    });
+    
+};
+
+
+exports.listBySearch = (req, res) => {
+    let order = req.body.order ? req.body.order : 'desc';
+    let sortBy = req.body.sortBy ? req.body.sortBy : '_id';
+    let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+    let skip = parseInt(req.body.skip);
+    let findArgs = {};
+
+    for (let key in req.body.filters) {
+        if (req.body.filters[key].length > 0) {
+            if (key === 'price') {
+                // gte -  greater than price [0-10]
+                // lte - less than
+                findArgs[key] = {
+                    $gte: req.body.filters[key][0],
+                    $lte: req.body.filters[key][1]
+                };
+            } else {
+                findArgs[key] = req.body.filters[key];
+            }
+        }
+    }
+
+    Auction.find(findArgs)
+        .populate('category')
+        .sort([[sortBy, order]])
+        .skip(skip)
+        .limit(limit)
+        .exec((err, data) => {
+            if (err) {
+                return res.status(400).json({
+                    error: 'Auctions not found'
+                });
+            }
+            res.json({
+                size: data.length,
+                data
+            });
+        });
+};
+
+
+exports.listSearchBox = (req, res) => {
+    // create query object to hold search value and category value
+    const query = {};
+    // assign search value to query.title
+    if (req.query.search) {
+        // Pattern matching regular expression 
+        query.title = { $regex: req.query.search, $options: 'i' };
+        //query.description = { $regex: req.query.search, $options: 'i' };
+        // assigne category value to query.category
+        if (req.query.category && req.query.category != 'All') {
+            query.category = req.query.category;
+        }
+        // find the product based on query object with 2 properties
+        // search and category
+        Auction.find(query, (err, products) => {
+            if (err) {
+                return res.status(400).json({
+                    error: errorHandler(err)
+                });
+            }
+            res.json(products);
+        });
+    }
+};
