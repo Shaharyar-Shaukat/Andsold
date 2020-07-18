@@ -90,8 +90,8 @@ export const listBySearchBox = params => {
         .catch(err => console.log(err));
 };
 
-export const getAuctionsById = UserId => {
-    return fetch(`http://localhost:8000/auctions/${UserId}`, {
+export const getAuctionsById = productId => {
+    return fetch(`http://localhost:8000/auctions/${productId.productId}`, {
         method: "GET"
     })
         .then(response => {
@@ -99,3 +99,23 @@ export const getAuctionsById = UserId => {
         })
         .catch(err => console.log(err));
 };
+
+export const readAuction = productId => {
+    return fetch(`http://localhost:8000/auctions/${productId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+export const listRelatedAuction = productId => {
+    return fetch(`http://localhost:8000/auctions/related/${productId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+

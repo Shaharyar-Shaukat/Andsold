@@ -11,6 +11,7 @@ import AddCategory from './auction/AddCategory';
 import ListProduct from './auction/ListProduct';
 import ViewAuction from './auction/ViewAuction';
 import LandPage from './core/LandPage';
+import Auction from './core/Auction';
 
 
 
@@ -24,6 +25,7 @@ const Routes = () => {
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/" exact component={Home} />
                 <Route path="/auctions" exact component={LandPage} />
+                <Route path="/auction/:auctionId" exact component={Auction} />
                 <PrivateRoute path="/dashboard" exact component={Dashboard} />
                 <PrivateRoute path="/create/category" exact component={AddCategory} />
                 <PrivateRoute path="/create/auction" exact component={ListProduct} />
