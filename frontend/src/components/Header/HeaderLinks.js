@@ -21,6 +21,14 @@ export default function HeaderLinks(props) {
     const classes = useStyles();
     return (
         <List className={classes.list}>
+            <ListItem className={classes.listItem}>
+                <Button
+                    href="/auctions"
+                    color="transparent"
+                    className={classes.navLink}
+                > <Person className={classes.icons}/>See Auctions
+                </Button>
+            </ListItem>
             {!isAuthenticated() && (
                 <ListItem className={classes.listItem}>
                     <Button

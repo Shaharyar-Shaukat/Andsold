@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
-import { createAuction, getCategories } from './api';
+import { createAuction, getCategories, getUser, sendMail } from './api';
 
 
 
@@ -63,6 +63,8 @@ const ListProduct = () => {
         setValues({ ...values, [name]: value });
     };
 
+    var MailData ="ITEM DETAILS :"
+
     const onSubmit = event => {
         event.preventDefault();
         setValues({ ...values, error: '', loading: true });
@@ -79,6 +81,25 @@ const ListProduct = () => {
                     price: '',
                     loading: false,
                     createdProduct: data.name
+                });
+                MailData+=title+", Price : "+price+" EURO, Description : "+description
+                getUser(user._id, accessToken).then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        var emails = data.map(d => d.email+" , ")
+                        var message ={
+                            "list": String(emails),
+                            "data": String(MailData)
+                        }
+                        sendMail(user._id, accessToken,message).then(data=>{
+                            if(data.error){
+                                alert(data.error)
+                            }else{
+                                alert("Auction is live!!")
+                            }
+                        })
+                    }
                 });
             }
         });
