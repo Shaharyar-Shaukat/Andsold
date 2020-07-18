@@ -1,14 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
-import { getAuctions } from '../auction/api';
+import {getAuctions,getUser} from '../auction/api';
 import CardBlock from '../component/CardBlock';
+import { isAuthenticated } from '../auth';
+
+// const getAuctions = (sortBy) => {
+//     return fetch(`http://localhost:8000/auctions/list?sortBy=${sortBy}&order=desc&limit=8`, {
+//         method: "GET"
+//     })
+//         .then(response => {
+//             return response.json();
+//         })
+//         .catch(err => console.log(err));
+// };
 
 const Home = () => {
 
+    const { user, accessToken } = isAuthenticated();
     const [auctionsByPrice, setAuctionsByPrice] = useState([]);
     const [auctionsByArrival, setAuctionsByArrival] = useState([]);
+    const [userData, setuserData] = useState([]);
     const [error, setError] = useState(false);
 
+     const loadUsers = ()=>{
+         getUser(user, accessToken).then(data => {
+             if (data.error) {   
+                 setError(data.error);
+             } else {
+                var emails = data.map(d => d.email+" , ")
+                 setuserData(emails);
+             }
+         });
+     }
     const loadAuctionsByPrice = () => {
         getAuctions('price').then(data => {
             if (data.error) {
@@ -35,6 +58,7 @@ const Home = () => {
     useEffect(() => {
         loadAuctionsByPrice();
         loadAuctionsByArrival();
+        loadUsers();
     }, []);
 
 
@@ -44,6 +68,7 @@ const Home = () => {
             description="Andsold Auction site"
             className="container-fluid"
         >
+         
             {JSON.stringify(auctionsByArrival)}
             <hr />
             {JSON.stringify(auctionsByPrice)}

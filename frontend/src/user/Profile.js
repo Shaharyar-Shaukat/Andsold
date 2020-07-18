@@ -51,12 +51,8 @@ const Profile = ({ match }) => {
     };
 
     const redirectUser = (success) => {
-        if (success) {
             alert(`Update is successful. `)
-
-            return <Redirect to="/" />
-
-        }
+            return <Redirect to="/" />;
     };
     const clickSubmit = (event) => {
         event.preventDefault()

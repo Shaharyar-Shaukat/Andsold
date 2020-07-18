@@ -40,8 +40,11 @@ exports.remove = (req, res) => {
 };
 //Fetch all suscribed users
 exports.listSub = (req, res) => {
-    User.find({'email':{'premium': true}}, function(err,data){
+    User.find({'premium': true}, { 'email': 1,_id:0 }, function(err,data){
             if(err) console.log("can't get user emails for mass mailing")
                 res.json(data)
         })
     };
+
+
+
