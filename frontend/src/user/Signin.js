@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
+import {Link} from 'react-router-dom';
+
 import {makeStyles} from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
-import Email from "@material-ui/icons/Email";
+import {Email} from "@material-ui/icons";
+
 import Header from "../components/Header/Header.js";
 import HeaderLinks from "../components/Header/HeaderLinks.js";
 import GridContainer from "../components/Grid/GridContainer.js";
@@ -22,28 +25,26 @@ import { useHistory } from "react-router-dom";
 const useStyles = makeStyles(styles);
 
 export default function Signin(props) {
-
     const history = useHistory();
-    let state = {
+    const [values, setValues] = useState({
         email: '',
         password: '',
         error: '',
         success: false
-    };
+    });
 
-    const handleChange = (e, actualName) => {
-        const {value} = e.currentTarget;
-        state[actualName] = value;
+    const {email, password, success, error } = values;
+
+    const handleChange = (event, name) => {
+        setValues({ ...values, error: false, [name]: event.target.value });
     };
 
     const clickSubmit = event => {
         event.preventDefault();
-        state.error = false
-        state.success = true
-        signin({email: state.email, password: state.password}).then(data => {
+        setValues({ ...values, error: false });
+        signin({ email, password }).then(data => {
             if (data.error) {
-                state.error = data.error
-                state.success = false
+                setValues({ ...values, error: data.error, success: false });
             } else {
                 authenticate(data, () => {
                     history.push("/auctions")
@@ -53,17 +54,17 @@ export default function Signin(props) {
     };
 
     const showError = () => (
-        <div className="alert alert-danger" style={{display: state.error ? '' : 'none'}}>
-            {state.error}
+        <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+            {error}
         </div>
     );
 
-    const showLoading = () =>
-        state.success && (
-            <div className="alert alert-info">
-                <h2>Loading...</h2>
-            </div>
-        );
+    const showSuccess = () => (
+        <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
+            New account is created. Please <Link to="/signin">Signin</Link>
+        </div>
+    );
+
 
     const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
     setTimeout(function () {
@@ -134,7 +135,6 @@ export default function Signin(props) {
                                             }}
                                         />
                                     </CardBody>
-                                    {showLoading()}
                                     {showError()}
                                     <CardFooter className={classes.cardFooter}>
                                         <Button onClick={clickSubmit} simple color="primary" size="lg">

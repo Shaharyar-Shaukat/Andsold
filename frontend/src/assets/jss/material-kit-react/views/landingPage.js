@@ -1,4 +1,4 @@
-import { container, title } from "../../material-kit-react";
+import {container, title} from "../../material-kit-react";
 
 const landingPageStyle = {
   container: {

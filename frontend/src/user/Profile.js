@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { isAuthenticated } from "../auth";
-import { Redirect } from 'react-router-dom';
-import { read, update, updateUser } from './apiUser'
+import React, {useEffect, useState} from "react";
+import {isAuthenticated} from "../auth";
+import {Redirect} from 'react-router-dom';
+import {read, update, updateUser} from './apiUser'
 import Header from "../components/Header/Header";
 import HeaderLinks from "../components/Header/HeaderLinks";
 import Parallax from "../components/Parallax/Parallax";
@@ -11,6 +11,7 @@ import GridItem from "../components/Grid/GridItem";
 import profile from "../assets/img/avatar.png";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import {makeStyles} from "@material-ui/core/styles";
+
 const useStyles = makeStyles(styles);
 
 const Profile = ({ match }) => {

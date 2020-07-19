@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 
 import Header from "components/Header/Header.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -13,7 +13,7 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 import ProductSection from "core/Sections/ProductSection.js";
 import ItemSection from "core/Sections/ItemSection.js";
-import { isAuthenticated} from "auth";
+import {isAuthenticated} from "auth";
 
 const dashboardRoutes = [];
 

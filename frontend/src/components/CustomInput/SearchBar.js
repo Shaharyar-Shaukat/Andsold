@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { getCategories, listBySearchBox } from "auction/api";
+import React, {useEffect, useState} from "react";
+import {getCategories, listBySearchBox} from "auction/api";
 import CardBlock from "components/Card/CardBlock";
 
 const SearchBar = () => {

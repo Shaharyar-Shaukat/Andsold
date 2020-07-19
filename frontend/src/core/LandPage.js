@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "./Layout";
 import CardBlock from 'components/Card/CardBlock';
 import {getCategories, getFilteredAuctions} from "auction/api";

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import SingleCardImage from "./SingleCardImage";
 import {postBid} from "auction/api";
 import {isAuthenticated} from "auth";

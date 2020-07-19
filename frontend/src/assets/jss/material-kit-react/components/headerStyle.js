@@ -1,15 +1,15 @@
 import {
-  container,
-  defaultFont,
-  primaryColor,
-  infoColor,
-  successColor,
-  warningColor,
-  dangerColor,
-  roseColor,
-  transition,
-  boxShadow,
-  drawerWidth
+    boxShadow,
+    container,
+    dangerColor,
+    defaultFont,
+    drawerWidth,
+    infoColor,
+    primaryColor,
+    roseColor,
+    successColor,
+    transition,
+    warningColor
 } from "../../material-kit-react";
 
 const headerStyle = {

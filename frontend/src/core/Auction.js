@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import Layout from './Layout';
-import { readAuction, listRelatedAuction } from 'auction/api';
+import {listRelatedAuction, readAuction} from 'auction/api';
 import CardBlock from 'components/Card/CardBlock';
 import SingleAuction from 'components/Card/SingleAuction';
 import GridItem from "../components/Grid/GridItem";
@@ -8,6 +8,7 @@ import GridItem from "../components/Grid/GridItem";
 import styles from "assets/jss/material-kit-react/views/landingPageSections/itemStyle.js";
 import {makeStyles} from "@material-ui/core/styles";
 import GridContainer from "../components/Grid/GridContainer";
+
 const useStyles = makeStyles(styles);
 
 const Auction = props => {

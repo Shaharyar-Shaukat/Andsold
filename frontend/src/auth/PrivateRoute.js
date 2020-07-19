@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Route, Redirect } from "react-router-dom";
-import { isAuthenticated } from "./index";
+import React, {Component} from "react";
+import {Redirect, Route} from "react-router-dom";
+import {isAuthenticated} from "./index";
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.

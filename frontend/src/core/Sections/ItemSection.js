@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import classNames from "classnames";
 import {makeStyles} from "@material-ui/core/styles";
 import {getAuctions} from 'auction/api';

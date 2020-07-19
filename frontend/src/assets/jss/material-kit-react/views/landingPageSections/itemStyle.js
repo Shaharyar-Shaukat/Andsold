@@ -1,4 +1,4 @@
-import { cardTitle, title } from "../../../material-kit-react";
+import {cardTitle, title} from "../../../material-kit-react";
 import imagesStyle from "../../../material-kit-react/imagesStyles.js";
 
 const itemStyle = {

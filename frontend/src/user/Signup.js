@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
+import {Link} from 'react-router-dom';
+
 import {makeStyles} from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
+import {Email, Home, People} from "@material-ui/icons";
+
 import Header from "../components/Header/Header.js";
 import HeaderLinks from "../components/Header/HeaderLinks.js";
 import GridContainer from "../components/Grid/GridContainer.js";
@@ -18,10 +20,6 @@ import CustomInput from "../components/CustomInput/CustomInput.js";
 import styles from "../assets/jss/material-kit-react/views/loginPage.js";
 import image from "../assets/img/login.jpg";
 import {signup} from '../auth';
-import {Home} from "@material-ui/icons";
-import { useHistory } from "react-router-dom";
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(styles);
 

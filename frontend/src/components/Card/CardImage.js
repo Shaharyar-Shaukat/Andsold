@@ -4,6 +4,7 @@ import classNames from "classnames";
 
 import styles from "assets/jss/material-kit-react/views/landingPageSections/itemStyle.js";
 import {makeStyles} from "@material-ui/core/styles";
+
 const useStyles = makeStyles(styles);
 
 const CardImage = ({item}) => {
