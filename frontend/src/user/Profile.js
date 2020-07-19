@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth";
 import { Redirect } from 'react-router-dom';
-import { read, update, updateUser, readName } from './apiUser'
+import { read, update, updateUser } from './apiUser'
 import Header from "../components/Header/Header";
 import HeaderLinks from "../components/Header/HeaderLinks";
 import Parallax from "../components/Parallax/Parallax";
@@ -28,18 +27,15 @@ const Profile = ({ match }) => {
         lastName: '',
         email: '',
         address: '',
-        password: '',
         premium: false,
         error: false,//default vlaues
         success: false
     })
 
-    let subscription = false
-
     const { accessToken } = isAuthenticated()
 
 
-    const { firstName, lastName, address, email, password, premium, error, success } = val
+    const { firstName, lastName, address, email, premium, error, success } = val
 
     const init = (uid) => {
         read(uid, accessToken).then(data => {

@@ -13,6 +13,7 @@ import styles from "assets/jss/material-kit-react/views/landingPage.js";
 
 import ProductSection from "core/Sections/ProductSection.js";
 import ItemSection from "core/Sections/ItemSection.js";
+import { isAuthenticated} from "auth";
 
 const dashboardRoutes = [];
 
@@ -45,15 +46,28 @@ export default function Home(props) {
                                 Make more of your stuff by selling them to the people that really appreciate their value.
                             </h4>
                             <br />
-                            <Button
-                                color="danger"
-                                size="lg"
-                                href="/signup"
-                                rel="noopener noreferrer"
-                            >
-                                <i className="MuiButtonBase-root" />
-                                Register now
-                            </Button>
+                            {!isAuthenticated() && (
+                                <Button
+                                    color="danger"
+                                    size="lg"
+                                    href="/signup"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i className="MuiButtonBase-root" />
+                                    Register now
+                                </Button>
+                            )}
+                            {isAuthenticated() && (
+                                <Button
+                                    color="danger"
+                                    size="lg"
+                                    href="/auctions"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i className="MuiButtonBase-root" />
+                                    Start Exploring
+                                </Button>
+                            )}
                         </GridItem>
                     </GridContainer>
                 </div>

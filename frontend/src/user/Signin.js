@@ -134,6 +134,8 @@ export default function Signin(props) {
                                             }}
                                         />
                                     </CardBody>
+                                    {showLoading()}
+                                    {showError()}
                                     <CardFooter className={classes.cardFooter}>
                                         <Button onClick={clickSubmit} simple color="primary" size="lg">
                                             Get started

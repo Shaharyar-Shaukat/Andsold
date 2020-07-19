@@ -1,5 +1,5 @@
 export const read = (uid, token) => {
-    return fetch(`http://localhost:8000/users//${uid}`, {
+    return fetch(`http://localhost:8000/users/${uid}`, {
         method: "GET",
         headers: {
             Accept: "application/json",
