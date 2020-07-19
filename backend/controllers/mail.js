@@ -2,15 +2,15 @@ const nodemailer = require('nodemailer')
 const id = require('./config.json')
 const User = require('../models/user');
 
-exports.mailparse = (req, res,next,)=>{
-    User.find({'premium': true}, { 'email': 1,_id:0 }, function(err,data){
-      if(err) console.log("can't get user emails for mass mailing")
-      if (!data) return res.status(400).json({error: 'Auction not found'});
-      if (err) return err
-      req.list = data;
-      next();
-      })
-}
+// exports.mailparse = (req, res,next,)=>{
+//     User.find({'premium': true}, { 'email': 1,_id:0 }, function(err,data){
+//       if(err) console.log("can't get user emails for mass mailing")
+//       if (!data) return res.status(400).json({error: 'Auction not found'});
+//       if (err) return err
+//       req.list = data;
+//       next();
+//       })
+// }
 
 
 exports.sendUpdate = (req, res) => {
@@ -27,6 +27,13 @@ exports.sendUpdate = (req, res) => {
   };
 
   const transporter = nodemailer.createTransport(transport);
+
+  transporter.use('compile', hbs({
+    viewEngine: 'express-handlebars',
+    viewPath: '../helpers/'
+  }));
+
+
   transporter.verify((error, success) => {
     if (error) {
       alert(error)
@@ -43,7 +50,11 @@ exports.sendUpdate = (req, res) => {
     subject: 'A new item is live for auction.',
     text: `Hello, 
     We are happy to announce that a new auciton has been added to page, do go check it out! 
-    ${String(req.body.data)}`
+    ${String(req.body.data)}`,
+    template: 'index',
+    context: {
+      name: 'Accime Esterling'
+    }// for addin addeitional fields
   }
 
   transporter.sendMail(mail, (err, data) => {
