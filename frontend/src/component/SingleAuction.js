@@ -111,9 +111,27 @@ const SingleAuction = ({ product }) => {
       </div>);
     }
 
+    const displayStatus=()=>{
+      return (<div>
+        
+        {!timerComponents.length ? <h2>Sold!!!</h2> : AddBiddin()}
+      </div>
+      );
+    }
+
+    const notSignin=()=>{
+      return (<div>
+        <p className="black-8">
+          <b>Current Highest-Bid :</b>  <big>€ {product.price}</big>
+        </p>
+        <h2>Please Signin to make a bid.</h2>
+      </div>
+      );
+    }
+
     return (
       <div>
-        {!timerComponents.length ? <h2>Sold!!!</h2> : AddBiddin()}
+      {!isAuthenticated() ? notSignin()  : displayStatus()}
       </div>
     );
   }
