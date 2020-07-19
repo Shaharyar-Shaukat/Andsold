@@ -48,7 +48,7 @@ const Auction = props => {
                     <h4>Related products</h4>
                     {relatedProduct.map((p, i) => (
                         <div className="mb-3" key={i}>
-                            <SingleAuction product={p} />
+                            <CardBlock product={p} />
                         </div>
                     ))}
                 </div>

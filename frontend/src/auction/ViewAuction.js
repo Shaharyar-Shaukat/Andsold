@@ -29,8 +29,8 @@ const ViewAuction = () => {
       getAuctionsById({ productId: productId }).then((response) => {
         //debugger;
         if (response.error) {
-          console.log(response.error + "here");
-          console.log("here");
+          console.log(response.error );
+          
         } else {
           //setData({ ...data, results: response });
         }
