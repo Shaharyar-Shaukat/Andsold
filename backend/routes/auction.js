@@ -24,6 +24,8 @@ router.get("/related/:auctionId", listRelatedAuction);
 router.get('/image/:auctionId', getImage);
 router.post("/by/search", listBySearch);
 
+router.post("/:auctionId/bid",authenticate, bid);
+
 
 router.param('auctionId', auctionById);
 

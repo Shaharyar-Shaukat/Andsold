@@ -42,7 +42,6 @@ const Signup = () => {
         });
     };
 
-
     const signUpForm = () => (
         <form>
             <div className="form-group">

@@ -124,3 +124,51 @@ export const listBySearchBox = params => {
         .catch(err => console.log(err));
 };
 
+export const getAuctionsById = productId => {
+    return fetch(`http://localhost:8000/auctions/${productId.productId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const readAuction = productId => {
+    return fetch(`http://localhost:8000/auctions/${productId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+export const listRelatedAuction = productId => {
+    return fetch(`http://localhost:8000/auctions/related/${productId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+
+
+export const postBid = (_id,token,data) =>{
+    
+    return fetch(`http://localhost:8000/auctions/${data._id}/bid`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            //alert(`${data} is hosted`)
+            return response.json();
+        })
+        .catch(err => console.log(err));    
+};
