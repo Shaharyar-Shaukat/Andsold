@@ -130,7 +130,7 @@ const ListProduct = () => {
 
             <div className="form-group">
                 <label className="text-muted">Price</label>
-                <input onChange={handleChange('price')} type="number" className="form-control" value={price}/>
+                <input onChange={handleChange('price')} type="number" min="0" className="form-control" value={price}/>
             </div>
 
             <div className="form-group">
