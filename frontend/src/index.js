@@ -12,7 +12,6 @@ import PrivateRoute from './auth/PrivateRoute';
 import Dashboard from './user/Dashboard';
 import AddCategory from './auction/AddCategory';
 import ListProduct from './auction/ListProduct';
-import ViewAuction from './auction/ViewAuction';
 import LandPage from './core/LandPage';
 import Auction from './core/Auction';
 import Profile from "./user/Profile";
@@ -30,7 +29,6 @@ ReactDOM.render(
             <PrivateRoute path="/dashboard" exact component={Dashboard} />
             <PrivateRoute path="/create/category" exact component={AddCategory} />
             <PrivateRoute path="/create/auction" exact component={ListProduct} />
-            <PrivateRoute path="/ViewAuction" exact component={ViewAuction} />
             <PrivateRoute path="/profile/:userid" exact component={Profile} />
         </Switch>
     </Router>,

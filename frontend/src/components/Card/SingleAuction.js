@@ -93,7 +93,7 @@ const SingleAuction = ({product}) => {
                        type='number'
                        id='newBid'
                        placeholder="Bid Away!"
-                       style={{maxWidth: "200px"}}/>
+                       style={{margin: "auto", maxWidth: "200px"}}/>
 
                 <button onClick={bidChange} className="btn btn-outline-warning mt-2 mb-2">
                     Bid

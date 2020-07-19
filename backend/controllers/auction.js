@@ -107,14 +107,14 @@ exports.bid = (req, res) => {
         {_id: req.auction._id, buyer: {$ne: req.auth._id}, price: {$lt: req.body.price}},
         { $set: { price: req.body.price, buyer: req.auth._id } },
         {new: true},
-        (err, order) => {
+        (err, auction) => {
         if (err) {
             return res.status(400).json({
                 error: errorHandler(err)
             });
         }
-        if (!order) return res.json({error: 'Bid not successful'});
-        res.json(order)
+        if (!auction) return res.json({error: 'Bid not successful. Are you trying to outbid yourself?'});
+        res.json(auction)
     });
 };
 
