@@ -174,44 +174,44 @@ const ListProduct = () => {
         );
 
     return (
-            <div>
-                <Header
-                    color="transparent"
-                    brand="AndSold"
-                    rightLinks={<HeaderLinks/>}
-                    fixed
-                    changeColorOnScroll={{
-                        height: 200,
-                        color: "white"
-                    }}
-                />
-                <Parallax small filter image={require("../assets/img/login.jpg")}/>
-                <div className={classNames(classes.main, classes.mainRaised)}>
-                    <div>
-                        <div className={classes.container}>
-                            <GridContainer justify="center">
-                                <GridItem xs={12} sm={12} md={6}>
-                                    <div className={classes.profile}>
-                                        <div>
-                                            <img src={profile} alt="..." className={imageClasses}/>
-                                        </div>
-                                        <div className={classes.name}>
-                                            <h3 className={classes.title}>Create Auction</h3>
-                                        </div>
+        <div>
+            <Header
+                color="transparent"
+                brand="AndSold"
+                rightLinks={<HeaderLinks/>}
+                fixed
+                changeColorOnScroll={{
+                    height: 200,
+                    color: "white"
+                }}
+            />
+            <Parallax small filter image={require("../assets/img/login.jpg")}/>
+            <div className={classNames(classes.main, classes.mainRaised)}>
+                <div>
+                    <div className={classes.container}>
+                        <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={6}>
+                                <div className={classes.profile}>
+                                    <div>
+                                        <img src={profile} alt="..." className={imageClasses}/>
                                     </div>
-                                </GridItem>
-                            </GridContainer>
-                            <div className={classes.description}>
-                                {showLoading()}
-                                {showSuccess()}
-                                {showError()}
-                                {AuctionForm()}
-                            </div>
+                                    <div className={classes.name}>
+                                        <h3 className={classes.title}>Create Auction</h3>
+                                    </div>
+                                </div>
+                            </GridItem>
+                        </GridContainer>
+                        <div className={classes.description}>
+                            {showLoading()}
+                            {showSuccess()}
+                            {showError()}
+                            {AuctionForm()}
                         </div>
                     </div>
-                    ,
                 </div>
+                ,
             </div>
+        </div>
     );
 
 };

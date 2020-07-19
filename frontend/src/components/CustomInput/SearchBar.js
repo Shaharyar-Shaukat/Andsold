@@ -11,14 +11,14 @@ const SearchBar = () => {
         searched: false
     });
 
-    const { categories, category, search, results, searched } = data;
+    const {categories, category, search, results, searched} = data;
 
     const loadCategoriesFromDB = () => {
         getCategories().then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
-                setData({ ...data, categories: data });
+                setData({...data, categories: data});
             }
         });
     };
@@ -29,12 +29,12 @@ const SearchBar = () => {
 
     const searchAuctions = () => {
         if (search) {
-            listBySearchBox({ search: search || undefined, category: category }).then(
+            listBySearchBox({search: search || undefined, category: category}).then(
                 response => {
                     if (response.error) {
                         console.log(response.error);
                     } else {
-                        setData({ ...data, results: response, searched: true });
+                        setData({...data, results: response, searched: true});
                     }
                 }
             );
@@ -47,7 +47,7 @@ const SearchBar = () => {
     };
 
     const handleChange = name => event => {
-        setData({ ...data, [name]: event.target.value, searched: false });
+        setData({...data, [name]: event.target.value, searched: false});
     };
 
     const searchMessage = (searched, results) => {
@@ -69,7 +69,7 @@ const SearchBar = () => {
                 <div className="row">
                     {results.map((product, i) => (
                         <div className="col-3 mb-4">
-                            <CardBlock key={i} product={product} />
+                            <CardBlock key={i} product={product}/>
                         </div>
                     ))}
                 </div>
@@ -104,7 +104,7 @@ const SearchBar = () => {
                 </div>
                 <div
                     className="btn input-group-append"
-                    style={{ border: "none" }}
+                    style={{border: "none"}}
                 >
                     <button className="input-group-text">Search</button>
                 </div>

@@ -14,7 +14,7 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(styles);
 
-const Profile = ({ match }) => {
+const Profile = ({match}) => {
 
     const classes = useStyles();
     const imageClasses = classNames(
@@ -33,17 +33,25 @@ const Profile = ({ match }) => {
         success: false
     })
 
-    const { accessToken } = isAuthenticated()
+    const {accessToken} = isAuthenticated()
 
 
-    const { firstName, lastName, address, email, premium, error, success } = val
+    const {firstName, lastName, address, email, premium, error, success} = val
 
     const init = (uid) => {
         read(uid, accessToken).then(data => {
             if (data.error) {
-                setval({ ...val, error: true })
+                setval({...val, error: true})
             } else {
-                setval({ ...val, firstName: data.firstName, lastName: data.lastName, address: data.address, premium: data.premium, email: data.email, success: true })
+                setval({
+                    ...val,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    address: data.address,
+                    premium: data.premium,
+                    email: data.email,
+                    success: true
+                })
                 //alert(`Flag${premium}`)
             }
         })
@@ -54,28 +62,34 @@ const Profile = ({ match }) => {
     }, [])
 
 
-
     const handleSubscribe = name => event => {
-        setval({ ...val, error: false, [name]: !premium })
+        setval({...val, error: false, [name]: !premium})
     };
 
 
     const handleChange = name => event => {
-        setval({ ...val, error: false, [name]: event.target.value });
+        setval({...val, error: false, [name]: event.target.value});
     };
 
     const redirectUser = (success) => {
         alert(`Update is successful. `)
-        return <Redirect to="/" />;
+        return <Redirect to="/"/>;
     };
     const clickSubmit = (event) => {
         event.preventDefault()
-        update(match.params.userid, accessToken, { premium, firstName, lastName, address, email }).then(data => {
+        update(match.params.userid, accessToken, {premium, firstName, lastName, address, email}).then(data => {
             if (data.error) {
                 alert(data.error);
             } else {
                 updateUser(data, () => {
-                    setval({ ...val, firstName: data.firstName, email: data.email, address: data.address, lastName: data.lastName, success: true })
+                    setval({
+                        ...val,
+                        firstName: data.firstName,
+                        email: data.email,
+                        address: data.address,
+                        lastName: data.lastName,
+                        success: true
+                    })
                 })
                 redirectUser(success)
                 //alert(`Action is ${success}`)
@@ -89,29 +103,30 @@ const Profile = ({ match }) => {
             <form>
                 <div className="form-group">
                     <label className="text-muted">First Name</label>
-                    <input onChange={handleChange('firstName')} type="text" className="form-control" value={firstName} />
+                    <input onChange={handleChange('firstName')} type="text" className="form-control" value={firstName}/>
                 </div>
 
                 <div className="form-group">
                     <label className="text-muted">Last Name</label>
-                    <input onChange={handleChange('lastName')} type="text" className="form-control" value={lastName} />
+                    <input onChange={handleChange('lastName')} type="text" className="form-control" value={lastName}/>
                 </div>
 
                 <div className="form-group">
                     <label className="text-muted">Address</label>
-                    <input onChange={handleChange('address')} type="text" className="form-control" value={address} />
+                    <input onChange={handleChange('address')} type="text" className="form-control" value={address}/>
                 </div>
 
                 <div className="form-group">
                     <label className="text-muted">Email</label>
-                    <input onChange={handleChange('email')} type="email" className="form-control" value={email} />
+                    <input onChange={handleChange('email')} type="email" className="form-control" value={email}/>
                 </div>
 
                 <div class="custom-control custom-switch">
-                    <input onChange={handleSubscribe('premium')} checked={premium} type="checkbox" class="custom-control-input" id="customSwitches" />
+                    <input onChange={handleSubscribe('premium')} checked={premium} type="checkbox"
+                           class="custom-control-input" id="customSwitches"/>
                     <label class="custom-control-label" for="customSwitches">Subscription</label>
                 </div>
-                <br />
+                <br/>
 
                 <button onClick={clickSubmit} className="btn btn-primary">
                     Submit
@@ -167,13 +182,12 @@ const Profile = ({ match }) => {
                             {names()}
                         </div>
                     </div>
-                </div>,
+                </div>
+                ,
             </div>
         </div>
     )
 };
-
-
 
 
 export default Profile

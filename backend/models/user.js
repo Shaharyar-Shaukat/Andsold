@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema(
         },
         phoneNumber: String,
         premium: {
-            type:Boolean,
+            type: Boolean,
             default: false
         }
     },

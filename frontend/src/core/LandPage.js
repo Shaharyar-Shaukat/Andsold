@@ -145,15 +145,15 @@ const LandPage = () => {
             <GridContainer justify="center">
                 <GridItem xs={12} sm={12} md={6}>
                     <div className={classes.title}>
-                            <h4>Filter by categories</h4>
-                            <ul>
-                                <Checkbox
-                                    categories={categories}
-                                    handleFilters={filters =>
-                                        handleFilters(filters, "category")
-                                    }
-                                />
-                            </ul>
+                        <h4>Filter by categories</h4>
+                        <ul>
+                            <Checkbox
+                                categories={categories}
+                                handleFilters={filters =>
+                                    handleFilters(filters, "category")
+                                }
+                            />
+                        </ul>
                     </div>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>

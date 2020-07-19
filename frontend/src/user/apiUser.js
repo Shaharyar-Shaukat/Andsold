@@ -47,11 +47,11 @@ export const update = (userId, token, user) => {
 //to update the local data so change reflects immediately
 
 export const updateUser = (user, next) => {
-    if (typeof window !== 'undefined'){
-        if (localStorage.getItem('jwt')){
-            let auth =JSON.parse(localStorage.getItem('jwt'));
-            auth.user =  user
-            localStorage.setItem('jwt',JSON.stringify(auth))
+    if (typeof window !== 'undefined') {
+        if (localStorage.getItem('jwt')) {
+            let auth = JSON.parse(localStorage.getItem('jwt'));
+            auth.user = user
+            localStorage.setItem('jwt', JSON.stringify(auth))
             next()
         }
     }

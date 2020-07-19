@@ -51,7 +51,8 @@ const Auction = props => {
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <div className={classes.title}>
-                            {product && product.description && <SingleAuction product={product} showViewProductButton={false} />}
+                            {product && product.description &&
+                            <SingleAuction product={product} showViewProductButton={false}/>}
                         </div>
                     </GridItem>
                 </GridContainer>

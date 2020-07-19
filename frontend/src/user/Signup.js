@@ -35,18 +35,18 @@ export default function Signup(props) {
         success: false
     });
 
-    const { firstName, lastName, address, email, password, success, error } = values;
+    const {firstName, lastName, address, email, password, success, error} = values;
 
     const handleChange = (event, name) => {
-        setValues({ ...values, error: false, [name]: event.target.value });
+        setValues({...values, error: false, [name]: event.target.value});
     };
 
     const clickSubmit = event => {
         event.preventDefault();
-        setValues({ ...values, error: false });
-        signup({ firstName, lastName, address, email, password }).then(data => {
+        setValues({...values, error: false});
+        signup({firstName, lastName, address, email, password}).then(data => {
             if (data.error) {
-                setValues({ ...values, error: data.error, success: false });
+                setValues({...values, error: data.error, success: false});
             } else {
                 setValues({
                     ...values,
@@ -62,13 +62,13 @@ export default function Signup(props) {
         });
     };
     const showError = () => (
-        <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+        <div className="alert alert-danger" style={{display: error ? '' : 'none'}}>
             {error}
         </div>
     );
 
     const showSuccess = () => (
-        <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
+        <div className="alert alert-info" style={{display: success ? '' : 'none'}}>
             New account is created. Please <Link to="/signin">Signin</Link>
         </div>
     );

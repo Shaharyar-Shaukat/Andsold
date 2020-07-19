@@ -6,7 +6,7 @@ const SingleCardImage = ({item}) => (
             src={`http://localhost:8000/auctions/image/${item}`}
             alt={item}
             className="mb-3 SingleAutionPhoto"
-            style={{ maxHeight: "500px", maxWidth: "500px" }}
+            style={{maxHeight: "500px", maxWidth: "500px"}}
         />
     </div>
 );

@@ -4,8 +4,8 @@ const multer = require('multer');
 const upload = multer({dest: 'uploads/images'});
 
 
-const { auctionById, list, create, read, update, remove, listRelatedAuction, bid, getImage, listBySearch,listSearchBox } = require('../controllers/auction');
-const { authenticate } = require('../controllers/authentication');
+const {auctionById, list, create, read, update, remove, listRelatedAuction, bid, getImage, listBySearch, listSearchBox} = require('../controllers/auction');
+const {authenticate} = require('../controllers/authentication');
 
 
 // list Items
@@ -24,7 +24,7 @@ router.get("/related/:auctionId", listRelatedAuction);
 router.get('/image/:auctionId', getImage);
 router.post("/by/search", listBySearch);
 
-router.post("/:auctionId/bid",authenticate, bid);
+router.post("/:auctionId/bid", authenticate, bid);
 
 
 router.param('auctionId', auctionById);

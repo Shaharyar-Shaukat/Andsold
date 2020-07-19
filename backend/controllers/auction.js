@@ -46,8 +46,8 @@ exports.list = (req, res) => {
  */
 exports.create = (req, res) => {
     // Handle backened 
-    if(!req.body.category) return res.status(400).json({error: 'Category Required'});
-    if(!req.body.title) return res.status(400).json({error: 'Title Required'});
+    if (!req.body.category) return res.status(400).json({error: 'Category Required'});
+    if (!req.body.title) return res.status(400).json({error: 'Title Required'});
     if (!req.file) return res.status(400).json({error: 'Product Image Required'});
 
     req.body.imagePath = req.file.path;
@@ -105,23 +105,23 @@ exports.remove = (req, res) => {
 exports.bid = (req, res) => {
     Auction.findOneAndUpdate(
         {_id: req.auction._id, buyer: {$ne: req.auth._id}, price: {$lt: req.body.price}},
-        { $set: { price: req.body.price, buyer: req.auth._id } },
+        {$set: {price: req.body.price, buyer: req.auth._id}},
         {new: true},
         (err, auction) => {
-        if (err) {
-            return res.status(400).json({
-                error: errorHandler(err)
-            });
-        }
-        if (!auction) return res.json({error: 'Bid not successful. Are you trying to outbid yourself?'});
-        res.json(auction)
-    });
+            if (err) {
+                return res.status(400).json({
+                    error: errorHandler(err)
+                });
+            }
+            if (!auction) return res.json({error: 'Bid not successful. Are you trying to outbid yourself?'});
+            res.json(auction)
+        });
 };
 
 
 exports.listRelatedAuction = (req, res) => {
     let limit = req.query.limit ? parseInt(req.query.limit) : 4;
-    Auction.find({ _id: { $ne: req.auction }, category: req.auction.category })
+    Auction.find({_id: {$ne: req.auction}, category: req.auction.category})
         .limit(limit)
         .populate('category', '_id name')
         .exec((err, auctions) => {
@@ -137,25 +137,25 @@ exports.listRelatedAuction = (req, res) => {
 
 exports.getImage = (req, res) => {
     let path = req.auction.imagePath
-    fs.readFile(path, (err, content)=> {
+    fs.readFile(path, (err, content) => {
         if (err) {
-            res.writeHead(400, {'Content-type':'text/html'})
+            res.writeHead(400, {'Content-type': 'text/html'})
             console.log(err);
             res.end("No such image");
         } else {
             //specify the content type in the response will be an image
-            res.writeHead(200,{'Content-type':'image/png'});
+            res.writeHead(200, {'Content-type': 'image/png'});
             res.end(content);
         }
 
     });
-    
+
 };
 
 
 exports.listRelatedAuction = (req, res) => {
     let limit = req.query.limit ? parseInt(req.query.limit) : 4;
-    Auction.find({ _id: { $ne: req.auction }, category: req.auction.category })
+    Auction.find({_id: {$ne: req.auction}, category: req.auction.category})
         .limit(limit)
         .populate('category', '_id name')
         .exec((err, auctions) => {
@@ -171,19 +171,19 @@ exports.listRelatedAuction = (req, res) => {
 
 exports.getImage = (req, res) => {
     let path = req.auction.imagePath
-    fs.readFile(path, (err, content)=> {
+    fs.readFile(path, (err, content) => {
         if (err) {
-            res.writeHead(400, {'Content-type':'text/html'})
+            res.writeHead(400, {'Content-type': 'text/html'})
             console.log(err);
             res.end("No such image");
         } else {
             //specify the content type in the response will be an image
-            res.writeHead(200,{'Content-type':'image/png'});
+            res.writeHead(200, {'Content-type': 'image/png'});
             res.end(content);
         }
 
     });
-    
+
 };
 
 
@@ -234,7 +234,7 @@ exports.listSearchBox = (req, res) => {
     // assign search value to query.title
     if (req.query.search) {
         // Pattern matching regular expression 
-        query.title = { $regex: req.query.search, $options: 'i' };
+        query.title = {$regex: req.query.search, $options: 'i'};
         //query.description = { $regex: req.query.search, $options: 'i' };
         // assigne category value to query.category
         if (req.query.category && req.query.category != 'All') {

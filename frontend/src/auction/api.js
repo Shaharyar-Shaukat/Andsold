@@ -18,7 +18,7 @@ export const createCategory = (userId, token, category) => {
         });
 };
 
-export const getUser = (id,token) =>{
+export const getUser = (id, token) => {
     return fetch(`http://localhost:8000/users/list/${id}`, {
         method: 'GET',
         headers: {
@@ -33,7 +33,7 @@ export const getUser = (id,token) =>{
         .catch(err => console.log(err));
 };
 
-export const sendMail = (_id,token,data) =>{
+export const sendMail = (_id, token, data) => {
     //alert(data.list)
     return fetch(`http://localhost:8000/mail/mail`, {
         method: 'POST',
@@ -153,8 +153,7 @@ export const listRelatedAuction = productId => {
 };
 
 
-
-export const postBid = (_id,token,data) =>{
+export const postBid = (_id, token, data) => {
 
     return fetch(`http://localhost:8000/auctions/${_id}/bid`, {
         method: 'POST',

@@ -6,7 +6,7 @@ import {isAuthenticated} from "./index";
 // screen if you're not yet authenticated.
 // Example :- https://reactrouter.com/web/example/auth-workflow
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({component: Component, ...rest}) => (
     <Route
         {...rest}
         render={props =>
@@ -16,7 +16,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
                 <Redirect
                     to={{
                         pathname: "/signin",
-                        state: { from: props.location }
+                        state: {from: props.location}
                     }}
                 />
             )
