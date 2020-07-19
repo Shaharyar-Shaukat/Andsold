@@ -156,7 +156,7 @@ export const listRelatedAuction = productId => {
 
 export const postBid = (_id,token,data) =>{
 
-    return fetch(`http://localhost:8000/auctions/${data._id}/bid`, {
+    return fetch(`http://localhost:8000/auctions/${_id}/bid`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',

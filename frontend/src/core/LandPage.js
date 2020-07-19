@@ -1,16 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Layout from "./Layout";
 import CardBlock from 'components/other/CardBlock';
-import { getCategories, getFilteredAuctions } from "auction/api";
+import {getCategories, getFilteredAuctions} from "auction/api";
 import Checkbox from 'components/other/Checkbox';
-import { prices } from "components/other/PriceRange";
+import {prices} from "components/other/PriceRange";
 import RadioBox from "components/other/RadioBox";
 import SearchBar from "../components/other/SearchBar";
+import GridItem from "../components/Grid/GridItem";
+import Card from "../components/Card/Card";
+import CardBody from "../components/Card/CardBody";
+import GridContainer from "../components/Grid/GridContainer";
+import classNames from "classnames";
+import styles from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
+import {makeStyles} from "@material-ui/core/styles";
+import {black} from "color-name";
+
+const useStyles = makeStyles(styles);
 
 
 const LandPage = () => {
+    const classes = useStyles();
     const [myFilters, setMyFilters] = useState({
-        filters: { category: [], price: [] }
+        filters: {category: [], price: []}
     });
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
@@ -18,6 +29,7 @@ const LandPage = () => {
     const [skip, setSkip] = useState(0);
     const [size, setSize] = useState(0);
     const [filteredResults, setFilteredResults] = useState([]);
+    const navImageClasses = classNames(classes.imgRaised, classes.imgFluid);
 
     const init = () => {
         getCategories().then(data => {
@@ -73,7 +85,7 @@ const LandPage = () => {
 
     const handleFilters = (filters, filterBy) => {
         // console.log("SHOP", filters, filterBy);
-        const newFilters = { ...myFilters };
+        const newFilters = {...myFilters};
         newFilters.filters[filterBy] = filters;
 
         if (filterBy === "price") {
@@ -101,43 +113,51 @@ const LandPage = () => {
             title="Shop Page"
             description="Search and find books of your choice"
             className="container-fluid"
-        >
-            <SearchBar />
-            <div className="row">
-                <div className="col-2">
-                    <h4>Filter by categories</h4>
-                    <ul>
-                        <Checkbox
-                            categories={categories}
-                            handleFilters={filters =>
-                                handleFilters(filters, "category")
-                            }
-                        />
-                    </ul>
-
-                    <h4>Filter by price range</h4>
-                    <div>
-                        <RadioBox
-                            prices={prices}
-                            handleFilters={filters =>
-                                handleFilters(filters, "price")
-                            }
-                        />
+        >,
+            <SearchBar/>
+            <GridContainer justify="center">
+                <GridItem xs={12} sm={12} md={6}>
+                    <div className={classes.title}>
+                            <h4>Filter by categories</h4>
+                            <ul>
+                                <Checkbox
+                                    categories={categories}
+                                    handleFilters={filters =>
+                                        handleFilters(filters, "category")
+                                    }
+                                />
+                            </ul>
                     </div>
-                </div>
-
-                <div className="col-8">
-                    <h2 className="mb-4">Products</h2>
-                    <div className="row">
-                        {filteredResults.map((product, i) => (
-                            <div key={i} className="col-4 mb-3">
-                                <CardBlock product={product} />
-                            </div>
-                        ))}
+                </GridItem>
+                <GridItem xs={12} sm={12} md={6}>
+                    <div className={classes.title}>
+                        <h4>Filter by price range</h4>
+                        <div>
+                            <RadioBox
+                                prices={prices}
+                                handleFilters={filters =>
+                                    handleFilters(filters, "price")
+                                }
+                            />
+                        </div>
                     </div>
-                    <hr />
-                    {loadMoreButton()}
-                </div>
+                </GridItem>
+            </GridContainer>
+
+            <div className={classes.section}>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <GridContainer>
+                            {filteredResults.map((product, i) => (
+                                <GridItem xs={12} sm={12} md={4} key={i}>
+                                    <CardBlock product={product}/>
+                                </GridItem>
+                            ))}
+                        </GridContainer>
+                        <hr/>
+                        {loadMoreButton()}
+                    </GridItem>
+                </GridContainer>
             </div>
         </Layout>
     );

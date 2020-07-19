@@ -10,7 +10,6 @@ import profile from "../assets/img/avatar.png";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import {isAuthenticated} from "../auth";
 import {Link} from "react-router-dom";
-
 const useStyles = makeStyles(styles);
 
 export default function Dashboard(props) {
@@ -115,7 +114,7 @@ export default function Dashboard(props) {
                             {userLinks()}
                         </div>
                     </div>
-                </div>
+                </div>,
             </div>
         </div>
     );
