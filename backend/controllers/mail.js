@@ -35,15 +35,27 @@ exports.sendUpdate = (req, res) => {
         }
     });
 
+    const message = (product) => {
+        return (
+            `<div>
+                <h4>Hi there,</h4>
+                <p>A new auction you might be interested in just went live on AndSold. Be fast AND be last!</p>
+                <b>Product Description:</b>
+                <ul>
+                    <li><b>Item: </b>${req.body.data.title}</li>
+                    <li><b>Description: </b>${product.description}</li>
+                    <li><b>Price: </b>${product.price}€</li>
+                </ul>
+                 <a href="http://localhost:3000/auctions"><img src="https://i.ibb.co/YWYM23M/3.png" alt="Here you go"></a>
+            </div>`
+        );
+    }
+
     const mail = {
         from: id.user,
-
         to: String(req.body.list),
-
-        subject: 'A new item is live for auction.',
-        text: `Hello, 
-    We are happy to announce that a new auciton has been added to page, do go check it out! 
-    ${String(req.body.data)}`
+        subject: 'New item according to your interests',
+        html: message(req.body.data)
     }
 
     transporter.sendMail(mail, (err, data) => {
