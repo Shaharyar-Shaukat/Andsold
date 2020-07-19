@@ -63,7 +63,6 @@ const ListProduct = () => {
         setValues({ ...values, [name]: value });
     };
 
-    var MailData ="ITEM DETAILS :"
 
     const onSubmit = event => {
         event.preventDefault();
@@ -82,7 +81,7 @@ const ListProduct = () => {
                     loading: false,
                     createdProduct: data.name
                 });
-                MailData+=title+", Price : "+price+" EURO, Description : "+description
+                const MailData ={"title": title,"price":price,"description" : description}
                 getUser(user._id, accessToken).then(data => {
                     if (data.error) {   
                         alert(data.error);
@@ -90,7 +89,7 @@ const ListProduct = () => {
                         var emails = data.map(d => d.email+" , ")
                         var message ={
                             "list": String(emails),
-                            "data": String(MailData)
+                            "data": MailData
                         }
                          sendMail(user._id, accessToken,message).then(data=>{
                              if(data.error){
