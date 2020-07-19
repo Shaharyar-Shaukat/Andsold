@@ -5,23 +5,17 @@ import {isAuthenticated} from "auth";
 
 
 const SingleAuction = ({product}) => {
-    const [data, setData] = useState({
-        product: "",
-    });
+
     const time = product.createdAt.substring(0, 10)
 
-    const {user, accessToken} = isAuthenticated();
-    const handleChange = (id) => (event) => {
-        setData({...data, [id]: 5});
-        //setValues({ ...values, error: false, [name]: event.target.value });
-    };
+    const {accessToken} = isAuthenticated();
+
     const aid = window.location.href.substring(
         window.location.href.indexOf("ion/") + 4,
         window.location.href.length
     );
-    var bidOpen = "Add bid here"
-    //alert(aid)
-    var currentBid = product.price;
+
+    let currentBid = product.price;
 
     function bidChange(newbid) {
         if (currentBid >= document.getElementById("newBid").value) {
@@ -44,11 +38,11 @@ const SingleAuction = ({product}) => {
     }
 
 
-    var targetDate = new Date((new Date(time)).getTime() + (1 * 86400000))
+    let targetDate = new Date((new Date(time)).getTime() + (1 * 86400000));
 
     function CountdownTimer() {
         const calculateTimeLeft = () => {
-            const difference = targetDate - new Date;
+            const difference = targetDate - new Date();
 
             let timeLeft = {};
 
@@ -121,7 +115,6 @@ const SingleAuction = ({product}) => {
             <div className="card-body">
                 <SingleCardImage item={product._id}/>
                 <br/>
-                <hr></hr>
                 <p className="card-p  mt-2"><b>Description:</b> {product.description.substring(0, 100)} </p>
                 <p className="black-9">
                     <b>Category:</b> {product.category && product.category.name}

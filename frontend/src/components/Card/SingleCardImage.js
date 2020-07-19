@@ -11,5 +11,4 @@ const SingleCardImage = ({item}) => (
     </div>
 );
 
-
 export default SingleCardImage;

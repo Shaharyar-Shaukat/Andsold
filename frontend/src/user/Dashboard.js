@@ -14,6 +14,13 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard(props) {
 
+    const classes = useStyles();
+    const {...rest} = props;
+    const imageClasses = classNames(
+        classes.imgRaised,
+        classes.imgRoundedCircle,
+        classes.imgFluid
+    );
     const {
         user: {_id, firstName, lastName, address, email}
     } = isAuthenticated();
@@ -70,15 +77,6 @@ export default function Dashboard(props) {
             </div>
         );
     };
-
-    const classes = useStyles();
-    const {...rest} = props;
-    const imageClasses = classNames(
-        classes.imgRaised,
-        classes.imgRoundedCircle,
-        classes.imgFluid
-    );
-    const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
 
     return (
         <div>
