@@ -28,11 +28,6 @@ exports.sendUpdate = (req, res) => {
 
   const transporter = nodemailer.createTransport(transport);
 
-  transporter.use('compile', hbs({
-    viewEngine: 'express-handlebars',
-    viewPath: '../helpers/'
-  }));
-
 
   transporter.verify((error, success) => {
     if (error) {
@@ -50,11 +45,11 @@ exports.sendUpdate = (req, res) => {
     subject: 'A new item is live for auction.',
     text: `Hello, 
     We are happy to announce that a new auciton has been added to page, do go check it out! 
-    ${String(req.body.data)}`,
-    template: 'index',
-    context: {
-      name: 'Accime Esterling'
-    }// for addin addeitional fields
+    ${String(req.body.data)}`
+    // template: 'index',
+    // context: {
+    //   name: 'Accime Esterling'
+    // }// for addin addeitional fields
   }
 
   transporter.sendMail(mail, (err, data) => {
@@ -67,7 +62,7 @@ exports.sendUpdate = (req, res) => {
       res.json({
         status: req.body
       })
-      console.log(req.body.list)
+      console.log(req.body.data)
     }
   })
 }

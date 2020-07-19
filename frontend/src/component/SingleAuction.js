@@ -1,51 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+//import { Link, Redirect } from "react-router-dom";
 import CardImage from "./CardImage";
 import SingleCardImage from "./SingleCardImage";
-import { postAuction, postBid } from "../auction/api";
+import { postBid } from "../auction/api";
 import { isAuthenticated } from "../auth";
+
 
 const SingleAuction = ({ product }) => {
   const [data, setData] = useState({
     product: "",
   });
+  const time = product.createdAt.substring(0, 10)
 
-  const calculateTimeLeft = () => {
-    const [timeleft, setTimrLeft] = useState(calculateTimeLeft());
-
-    let year = new Date().getFullYear();
-    let difference = +new Date(`${year}-10-1`) - +new Date();
-    let timeLeft = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        // days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    }
-
-    return timeLeft;
-  };
-  useEffect(() => {
-    setTimeout(() => {
-      setTimrLeft(calculateTimeLeft());
-    }, 1000);
-  });
-  const timerComponents = [];
-
-  Object.keys(timeLeft).forEach((interval) => {
-    if (!timeLeft[interval]) {
-      return;
-    }
-
-    timerComponents.push(
-      <span>
-        {timeLeft[interval]} {interval}{" "}
-      </span>
-    );
-  });
   const { user, accessToken } = isAuthenticated();
   const handleChange = (id) => (event) => {
     setData({ ...data, [id]: 5 });
@@ -55,6 +21,7 @@ const SingleAuction = ({ product }) => {
     window.location.href.indexOf("ion/") + 4,
     window.location.href.length
   );
+  var bidOpen = "Add bid here"
   //alert(aid)
   var currentBid = product.price;
   function bidChange(newbid) {
@@ -71,45 +38,110 @@ const SingleAuction = ({ product }) => {
         if (data.error) {
           alert(data.error);
         } else {
-          window.location.reload(false);
-          alert("Bidding Successful!");
+
+          window.location.reload(false)
+          alert("Bid placed successfully!");
         }
       });
     }
   }
 
+
+
+
+  var targetDate = new Date((new Date(time)).getTime() + (1 * 86400000))
+  function CountdownTimer() {
+    const calculateTimeLeft = () => {
+      const difference = targetDate - new Date;
+
+      let timeLeft = {};
+
+      if (difference > 0) {
+        timeLeft = {
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60)
+        };
+      }
+
+      return timeLeft;
+    };
+
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+    useEffect(() => {
+      setTimeout(() => {
+        setTimeLeft(calculateTimeLeft());
+      }, 1000);
+    });
+
+    const timerComponents = [];
+
+    Object.keys(timeLeft).forEach(interval => {
+      if (!timeLeft[interval]) {
+        return;
+      }
+
+      timerComponents.push(
+        <span>
+          {timeLeft[interval]} {interval}{" "}
+        </span>
+      );
+    });
+
+
+    function AddBiddin() {
+      return (<div>
+        <p className="black-8">
+          <b>Current Highest-Bid :</b>  <big>€ {product.price}</big>
+        </p>
+        
+        <big>{timerComponents}</big>
+        <br/><br/>
+
+        <input className='form-control' 
+        type='number' 
+        id='newBid' 
+
+        style={{ maxWidth: "200px" }}/>
+    
+        <button onClick={bidChange} className="btn btn-outline-warning mt-2 mb-2">
+          Bid
+          </button>
+      </div>);
+    }
+
+    return (
+      <div>
+        {!timerComponents.length ? <h2>Sold!!!</h2> : AddBiddin()}
+      </div>
+    );
+  }
+
+
+
+
+
+
   return (
     <div className="card ">
-      <div className="card-header card-header-1 ">{product.title}</div>
+      <div className="card-header card-header-1 "><big>{product.title}</big></div>
       <div className="card-body">
         <SingleCardImage item={product._id} />
-        <p className="card-p  mt-2">{product.description.substring(0, 100)} </p>
+        <br/><hr></hr>
+        <p className="card-p  mt-2"><b>Description:</b> {product.description.substring(0, 100)} </p>
         <p className="black-9">
-          Category: {product.category && product.category.name}
+        <b>Category:</b> {product.category && product.category.name}
         </p>
-        <p className="black-8">Added on : {product.createdAt}</p>
-        <p className="black-8">
-          Current Highest-Bid : <b> € {product.price}</b>
-        </p>
-        <br />
-
-        <input
-          className="black-8"
-          type="text"
-          id="newBid"
-          className="form-control"
-          style={{ maxWidth: "200px" }}
-        />
-        <button
-          onClick={bidChange}
-          className="btn btn-outline-warning mt-2 mb-2"
-        >
-          Bid
-        </button>
-        <div className="clock">
-        {timerComponents.length ? timerComponents : <span>Time's up!</span>}
+        <p className="black-8"><b>Added on:</b> {time}</p>
         </div>
-      </div>
+        <div className="card-header card-header-2 "><big>Auction Status</big></div>
+        <div className="card-body">
+        {CountdownTimer()}
+        </div>
+
+
+     
     </div>
   );
 };
