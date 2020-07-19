@@ -31,7 +31,9 @@ const ViewAuction = () => {
         if (response.error) {
           console.log(response.error );
           
+
         } else {
+          alert('Unable to fetch please try again later.')
           //setData({ ...data, results: response });
         }
       });

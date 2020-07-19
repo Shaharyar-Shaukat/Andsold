@@ -22,7 +22,7 @@ const AddCategory = () => {
         setError("");
         setSuccess(false);
         // make request to api to create category
-        createCategory("5f1223da7e3ac522e053441e", accessToken, { name }).then(data => {
+        createCategory(user._id, accessToken, { name }).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {

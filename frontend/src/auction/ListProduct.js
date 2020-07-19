@@ -83,7 +83,7 @@ const ListProduct = () => {
                 });
                 const MailData ={"title": title,"price":price,"description" : description}
                 getUser(user._id, accessToken).then(data => {
-                    if (data.error) {   
+                    if (data.error) {
                         alert(data.error);
                     } else {
                         var emails = data.map(d => d.email+" , ")
@@ -94,7 +94,7 @@ const ListProduct = () => {
                          sendMail(user._id, accessToken,message).then(data=>{
                              if(data.error){
                                  alert(data.error)
-                             }else{  
+                             }else{
                                  alert("Auction is live!!")
                              }
                          })
@@ -102,8 +102,6 @@ const ListProduct = () => {
                 });
             }
         });
-
-
     };
 
     const AuctionForm = () => (
