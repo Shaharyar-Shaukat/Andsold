@@ -1,11 +1,28 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../core/Layout";
-import avatar from "images/avtar.png";
 import { isAuthenticated } from "../auth";
 import { Redirect } from 'react-router-dom';
 import { read, update, updateUser, readName } from './apiUser'
+import Header from "../components/Header/Header";
+import HeaderLinks from "../components/Header/HeaderLinks";
+import Parallax from "../components/Parallax/Parallax";
+import classNames from "classnames";
+import GridContainer from "../components/Grid/GridContainer";
+import GridItem from "../components/Grid/GridItem";
+import profile from "../assets/img/avatar.png";
+import styles from "../assets/jss/material-kit-react/views/profilePage.js";
+import {makeStyles} from "@material-ui/core/styles";
+const useStyles = makeStyles(styles);
 
 const Profile = ({ match }) => {
+
+    const classes = useStyles();
+    const imageClasses = classNames(
+        classes.imgRaised,
+        classes.imgRoundedCircle,
+        classes.imgFluid
+    );
+
     const [val, setval] = useState({
         firstName: '',
         lastName: '',
@@ -17,7 +34,7 @@ const Profile = ({ match }) => {
         success: false
     })
 
-    let suscipion = false
+    let subscription = false
 
     const { accessToken } = isAuthenticated()
 
@@ -41,7 +58,7 @@ const Profile = ({ match }) => {
 
 
 
-    const handleSuscribe = name => event => {
+    const handleSubscribe = name => event => {
         setval({ ...val, error: false, [name]: !premium })
     };
 
@@ -94,8 +111,8 @@ const Profile = ({ match }) => {
                 </div>
 
                 <div class="custom-control custom-switch">
-                    <input onChange={handleSuscribe('premium')} checked={premium} type="checkbox" class="custom-control-input" id="customSwitches" />
-                    <label class="custom-control-label" for="customSwitches">Suscipion</label>
+                    <input onChange={handleSubscribe('premium')} checked={premium} type="checkbox" class="custom-control-input" id="customSwitches" />
+                    <label class="custom-control-label" for="customSwitches">Subscription</label>
                 </div>
                 <br />
 
@@ -121,17 +138,41 @@ const Profile = ({ match }) => {
     }
 
     return (
-        <Layout
-            title="AndSold"
-            description="Update Profile"
-            className=''>
-
-            <h2 className='md-4'>Profile Update</h2>
-            {profileUpdate(premium, firstName, lastName, address, email)}
-
-            {names()}
-
-        </Layout>
+        <div>
+            <Header
+                color="transparent"
+                brand="AndSold"
+                rightLinks={<HeaderLinks/>}
+                fixed
+                changeColorOnScroll={{
+                    height: 200,
+                    color: "white"
+                }}
+            />
+            <Parallax small filter image={require("../assets/img/login.jpg")}/>
+            <div className={classNames(classes.main, classes.mainRaised)}>
+                <div>
+                    <div className={classes.container}>
+                        <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={6}>
+                                <div className={classes.profile}>
+                                    <div>
+                                        <img src={profile} alt="..." className={imageClasses}/>
+                                    </div>
+                                    <div className={classes.name}>
+                                        <h3 className={classes.title}>Update Profile</h3>
+                                    </div>
+                                </div>
+                            </GridItem>
+                        </GridContainer>
+                        <div className={classes.description}>
+                            {profileUpdate(premium, firstName, lastName, address, email)}
+                            {names()}
+                        </div>
+                    </div>
+                </div>,
+            </div>
+        </div>
     )
 };
 

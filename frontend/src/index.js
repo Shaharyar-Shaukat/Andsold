@@ -15,6 +15,7 @@ import ListProduct from './auction/ListProduct';
 import ViewAuction from './auction/ViewAuction';
 import LandPage from './core/LandPage';
 import Auction from './core/Auction';
+import Profile from "./user/Profile";
 
 var hist = createBrowserHistory();
 
@@ -30,6 +31,7 @@ ReactDOM.render(
             <PrivateRoute path="/create/category" exact component={AddCategory} />
             <PrivateRoute path="/create/auction" exact component={ListProduct} />
             <PrivateRoute path="/ViewAuction" exact component={ViewAuction} />
+            <PrivateRoute path="/profile/:userid" exact component={Profile} />
         </Switch>
     </Router>,
     document.getElementById("root")
