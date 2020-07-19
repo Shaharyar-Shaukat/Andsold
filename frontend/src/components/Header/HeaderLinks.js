@@ -6,7 +6,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Tooltip from "@material-ui/core/Tooltip";
-import {Apps, CloudDownload, Person} from "@material-ui/icons";
+import {Apps, CloudDownload, Person, Search} from "@material-ui/icons";
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
 import Button from "components/CustomButtons/Button.js";
 import {signout, isAuthenticated} from "auth";
@@ -26,7 +26,7 @@ export default function HeaderLinks(props) {
                     href="/auctions"
                     color="transparent"
                     className={classes.navLink}
-                > <Person className={classes.icons}/>See Auctions
+                > <Search className={classes.icons}/>Explore
                 </Button>
             </ListItem>
             {!isAuthenticated() && (
@@ -65,12 +65,26 @@ export default function HeaderLinks(props) {
                 </ListItem>
             )}
             <ListItem className={classes.listItem}>
-                <Button
-                    href="/dashboard"
-                    color="transparent"
-                    className={classes.navLink}
-                > <Person className={classes.icons}/>Profile
-                </Button>
+                <CustomDropdown
+                    noLiPadding
+                    buttonText="User"
+                    buttonProps={{
+                        className: classes.navLink,
+                        color: "transparent"
+                    }}
+                    buttonIcon={Person}
+                    dropdownList={[
+                        <Link to="/dashboard" className={classes.dropdownLink}>
+                            User Dashboard
+                        </Link>,
+                        <Link to="/create/auction" className={classes.dropdownLink}>
+                            Create Auction
+                        </Link>,
+                        <Link to="/create/category" className={classes.dropdownLink}>
+                            Create Category
+                        </Link>
+                    ]}
+                />
             </ListItem>
         </List>
     );

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Layout from "./Layout";
-import CardBlock from '../components/other/CardBlock';
-import { getCategories, getFilteredAuctions } from "../auction/api";
-import Checkbox from '../components/other/Checkbox';
-import { prices } from "../components/other/PriceRange";
-import RadioBox from "../components/other/RadioBox";
+import CardBlock from 'components/other/CardBlock';
+import { getCategories, getFilteredAuctions } from "auction/api";
+import Checkbox from 'components/other/Checkbox';
+import { prices } from "components/other/PriceRange";
+import RadioBox from "components/other/RadioBox";
+import SearchBar from "../components/other/SearchBar";
 
 
 const LandPage = () => {
@@ -101,6 +102,7 @@ const LandPage = () => {
             description="Search and find books of your choice"
             className="container-fluid"
         >
+            <SearchBar />
             <div className="row">
                 <div className="col-2">
                     <h4>Filter by categories</h4>

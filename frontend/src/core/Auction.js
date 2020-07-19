@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
-import { readAuction, listRelatedAuction } from '../auction/api';
-import CardBlock from '../components/other/CardBlock';
-import SingleAuction from '../components/other/SingleAuction';
+import { readAuction, listRelatedAuction } from 'auction/api';
+import CardBlock from 'components/other/CardBlock';
+import SingleAuction from 'components/other/SingleAuction';
 
 const Auction = props => {
     const [product, setProduct] = useState({});

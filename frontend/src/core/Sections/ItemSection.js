@@ -3,12 +3,12 @@ import classNames from "classnames";
 import {makeStyles} from "@material-ui/core/styles";
 import {getAuctions} from 'auction/api';
 
-import GridContainer from "../../components/Grid/GridContainer.js";
-import GridItem from "../../components/Grid/GridItem.js";
-import Card from "../../components/Card/Card.js";
-import CardBody from "../../components/Card/CardBody.js";
+import GridContainer from "components/Grid/GridContainer.js";
+import GridItem from "components/Grid/GridItem.js";
+import Card from "components/Card/Card.js";
+import CardBody from "components/Card/CardBody.js";
 
-import styles from "../../assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
+import styles from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
 
 
 const useStyles = makeStyles(styles);
@@ -57,11 +57,13 @@ export default function ItemSection() {
                         <GridItem xs={12} sm={12} md={4} key={i}>
                             <Card plain>
                                 <GridItem xs={12} sm={12} md={6} className={classes.imgFluid}>
-                                    <img
-                                        alt={auction._id}
-                                        src={`http://localhost:8000/auctions/image/${auction._id}`}
-                                        className={navImageClasses}
-                                    />
+                                    <a href={`/auction/${auction._id}`}>
+                                        <img
+                                            alt={auction._id}
+                                            src={`http://localhost:8000/auctions/image/${auction._id}`}
+                                            className={navImageClasses}
+                                        />
+                                    </a>
                                 </GridItem>
                                 <h4 className={classes.cardTitle}>
                                     {auction.title}

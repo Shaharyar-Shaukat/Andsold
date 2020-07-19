@@ -152,3 +152,22 @@ export const listRelatedAuction = productId => {
         .catch(err => console.log(err));
 };
 
+
+
+export const postBid = (_id,token,data) =>{
+
+    return fetch(`http://localhost:8000/auctions/${data._id}/bid`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            //alert(`${data} is hosted`)
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
