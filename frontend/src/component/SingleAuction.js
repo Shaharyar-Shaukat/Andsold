@@ -11,7 +11,7 @@ const SingleAuction = ({ product }) => {
     product: "",
   });
   const time = product.createdAt.substring(0, 10)
-
+  const n1 =  product.createdAt.substring(12, 20)
   const { user, accessToken } = isAuthenticated();
   const handleChange = (id) => (event) => {
     setData({ ...data, [id]: 5 });
@@ -49,10 +49,10 @@ const SingleAuction = ({ product }) => {
 
 
 
-  var targetDate = new Date((new Date(time)).getTime() + (1 * 86400000))
+  var targetDate = new Date(product.createdAt).getTime()+ (1 * 86400000)
   function CountdownTimer() {
     const calculateTimeLeft = () => {
-      const difference = targetDate - new Date;
+      const difference = targetDate - new Date().getTime();
 
       let timeLeft = {};
 
@@ -151,7 +151,7 @@ const SingleAuction = ({ product }) => {
         <p className="black-9">
         <b>Category:</b> {product.category && product.category.name}
         </p>
-        <p className="black-8"><b>Added on:</b> {time}</p>
+        <p className="black-8"><b>Added on the :</b> {time} {n1} </p>
         </div>
         <div className="card-header card-header-2 "><big>Auction Status</big></div>
         <div className="card-body">
