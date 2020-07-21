@@ -1,23 +1,37 @@
-import React, { useState, useEffect } from "react";
-import Layout from "../core/Layout";
-import avatar from "../images/avatar.png";
-import { isAuthenticated } from "../auth";
-import { Link } from "react-router-dom";
+import React from "react";
+import classNames from "classnames";
+import {makeStyles} from "@material-ui/core/styles";
+import Header from "../components/Header/Header.js";
+import GridContainer from "../components/Grid/GridContainer.js";
+import GridItem from "../components/Grid/GridItem.js";
+import HeaderLinks from "../components/Header/HeaderLinks.js";
+import Parallax from "../components/Parallax/Parallax.js";
+import profile from "../assets/img/avatar.png";
+import styles from "../assets/jss/material-kit-react/views/profilePage.js";
+import {isAuthenticated} from "../auth";
+import {Link} from "react-router-dom";
 
+const useStyles = makeStyles(styles);
 
-const Dashboard = () => {
+export default function Dashboard(props) {
 
-
+    const classes = useStyles();
+    const {...rest} = props;
+    const imageClasses = classNames(
+        classes.imgRaised,
+        classes.imgRoundedCircle,
+        classes.imgFluid
+    );
     const {
-        user: { _id, firstName, lastName, address, email }
+        user: {_id, firstName, lastName, address, email}
     } = isAuthenticated();
 
     const userInfo = () => {
         return (
             <div className="card mb-5">
                 <h3 className="card-header">User Information</h3>
-                <ul className="list-group">
-                    <li className="list-group-item">Name : {firstName+" " +lastName}</li>
+                <ul className="list-group" style={{listStyleType: 'none'}}>
+                    <li className="list-group-item">Name : {firstName + " " + lastName}</li>
                     <li className="list-group-item">Email : {email}</li>
                     <li className="list-group-item">Address : {address}</li>
                 </ul>
@@ -28,9 +42,7 @@ const Dashboard = () => {
     const userLinks = () => {
         return (
             <div className="card">
-                 <img src={avatar} max-width="100%" height="250"></img>
-                <h4 className="card-header">{firstName+" "+lastName}</h4>
-                <ul className="list-group">
+                <ul className="list-group" style={{listStyleType: 'none'}}>
                     <li className="list-group-item">
                         <Link className="nav-link" to={`/profile/${_id}`}>
                             Update Profile
@@ -46,7 +58,7 @@ const Dashboard = () => {
                             My WishList
                         </Link>
                     </li>
-                
+
                     <li className="list-group-item">
                         <Link className="nav-link" to={`/bids/${_id}`}>
                             My Bids
@@ -66,18 +78,44 @@ const Dashboard = () => {
             </div>
         );
     };
+
     return (
-        <Layout title="Dashboard"   description={`Hello ${firstName}!`} className="container-fluid">
-            <div className="row">
-            <div className="col-2">{userLinks()}</div>
-                <div className="col-9">
-                    {userInfo()}
+        <div>
+            <Header
+                color="transparent"
+                brand="AndSold"
+                rightLinks={<HeaderLinks/>}
+                fixed
+                changeColorOnScroll={{
+                    height: 200,
+                    color: "white"
+                }}
+                {...rest}
+            />
+            <Parallax small filter image={require("../assets/img/login.jpg")}/>
+            <div className={classNames(classes.main, classes.mainRaised)}>
+                <div>
+                    <div className={classes.container}>
+                        <GridContainer justify="center">
+                            <GridItem xs={12} sm={12} md={6}>
+                                <div className={classes.profile}>
+                                    <div>
+                                        <img src={profile} alt="..." className={imageClasses}/>
+                                    </div>
+                                    <div className={classes.name}>
+                                        <h3 className={classes.title}>Hello {firstName}</h3>
+                                    </div>
+                                </div>
+                            </GridItem>
+                        </GridContainer>
+                        <div className={classes.description}>
+                            {userInfo()}
+                            {userLinks()}
+                        </div>
+                    </div>
                 </div>
+                ,
             </div>
-        </Layout>
+        </div>
     );
-
-};
-
-
-export default Dashboard;
+}

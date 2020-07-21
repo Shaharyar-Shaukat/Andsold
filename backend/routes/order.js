@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { orderById, listBought, listSold, create, read, update, remove } = require('../controllers/order');
-const { authenticate } = require('../controllers/authentication')
+const {orderById, listBought, listSold, create, read, update, remove} = require('../controllers/order');
+const {authenticate} = require('../controllers/authentication')
 
 // List bought or sold items
 router.get('/list/bought', authenticate, listBought);

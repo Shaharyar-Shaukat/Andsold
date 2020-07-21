@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Route, Redirect } from "react-router-dom";
-import { isAuthenticated } from "./index";
+import React, {Component} from "react";
+import {Redirect, Route} from "react-router-dom";
+import {isAuthenticated} from "./index";
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
 // Example :- https://reactrouter.com/web/example/auth-workflow
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({component: Component, ...rest}) => (
     <Route
         {...rest}
         render={props =>
@@ -16,7 +16,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
                 <Redirect
                     to={{
                         pathname: "/signin",
-                        state: { from: props.location }
+                        state: {from: props.location}
                     }}
                 />
             )

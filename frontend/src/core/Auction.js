@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import Layout from './Layout';
-import { readAuction, listRelatedAuction } from '../auction/api';
-import CardBlock from '../component/CardBlock';
-import SingleAuction from '../component/SingleAuction';
+import {listRelatedAuction, readAuction} from 'auction/api';
+import CardBlock from 'components/Card/CardBlock';
+import SingleAuction from 'components/Card/SingleAuction';
+import GridItem from "../components/Grid/GridItem";
 
+import styles from "assets/jss/material-kit-react/views/landingPageSections/itemStyle.js";
+import {makeStyles} from "@material-ui/core/styles";
+import GridContainer from "../components/Grid/GridContainer";
+
+const useStyles = makeStyles(styles);
 
 const Auction = props => {
+    const classes = useStyles();
+
     const [product, setProduct] = useState({});
     const [relatedProduct, setRelatedProduct] = useState([]);
     const [error, setError] = useState(false);
@@ -39,19 +47,32 @@ const Auction = props => {
             description={product && product.description && product.description.substring(0, 100)}
             className="container-fluid"
         >
-            <div className="row">
-                <div className="col-8">
-                    {product && product.description && <SingleAuction product={product} showViewProductButton={false} />}
-                </div>
-
-                <div className="col-4">
-                    <h4>Related products</h4>
-                    {relatedProduct.map((p, i) => (
-                        <div className="mb-3" key={i}>
-                            <CardBlock product={p} />
+            <div className={classes.section}>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <div className={classes.title}>
+                            {product && product.description &&
+                            <SingleAuction product={product} showViewProductButton={false}/>}
                         </div>
-                    ))}
-                </div>
+                    </GridItem>
+                </GridContainer>
+            </div>
+            <div className={classes.section}>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                        <div className={classes.title}>
+                            <h2>Related products</h2>
+                        </div>
+                        <GridContainer>
+                            {relatedProduct.map((product, i) => (
+                                <GridItem xs={12} sm={12} md={4} key={i}>
+                                    <CardBlock product={product}/>
+                                </GridItem>
+                            ))}
+                        </GridContainer>
+                        <hr/>
+                    </GridItem>
+                </GridContainer>
             </div>
         </Layout>
     );

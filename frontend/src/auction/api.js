@@ -18,8 +18,7 @@ export const createCategory = (userId, token, category) => {
         });
 };
 
-
-export const getUser = (id,token) =>{
+export const getUser = (id, token) => {
     return fetch(`http://localhost:8000/users/list/${id}`, {
         method: 'GET',
         headers: {
@@ -31,10 +30,10 @@ export const getUser = (id,token) =>{
         .then(response => {
             return response.json();
         })
-        .catch(err => console.log(err));    
+        .catch(err => console.log(err));
 };
 
-export const sendMail = (_id,token,data) =>{
+export const sendMail = (_id, token, data) => {
     //alert(data.list)
     return fetch(`http://localhost:8000/mail/mail`, {
         method: 'POST',
@@ -49,7 +48,7 @@ export const sendMail = (_id,token,data) =>{
             //alert(`${data} is hosted`)
             return response.json();
         })
-        .catch(err => console.log(err));    
+        .catch(err => console.log(err));
 };
 
 export const getCategories = () => {
@@ -154,10 +153,9 @@ export const listRelatedAuction = productId => {
 };
 
 
+export const postBid = (_id, token, data) => {
 
-export const postBid = (_id,token,data) =>{
-    
-    return fetch(`http://localhost:8000/auctions/${data._id}/bid`, {
+    return fetch(`http://localhost:8000/auctions/${_id}/bid`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -170,5 +168,5 @@ export const postBid = (_id,token,data) =>{
             //alert(`${data} is hosted`)
             return response.json();
         })
-        .catch(err => console.log(err));    
+        .catch(err => console.log(err));
 };
