@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Layout from "../core/Layout";
-import { isAuthenticated } from "../auth";
-import { Link } from "react-router-dom";
-import { createCategory } from "./api";
+import {isAuthenticated} from "../auth";
+import {Link} from "react-router-dom";
+import {createCategory} from "./api";
 
 const AddCategory = () => {
     const [name, setName] = useState("");
@@ -10,7 +10,7 @@ const AddCategory = () => {
     const [success, setSuccess] = useState(false);
 
     // destructure user and token from localstorage.
-    const { user, accessToken } = isAuthenticated();
+    const {user, accessToken} = isAuthenticated();
 
     const handleChange = e => {
         setError("");
@@ -22,7 +22,7 @@ const AddCategory = () => {
         setError("");
         setSuccess(false);
         // make request to api to create category
-        createCategory(user._id, accessToken, { name }).then(data => {
+        createCategory(user._id, accessToken, {name}).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {

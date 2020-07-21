@@ -1,5 +1,4 @@
 import React from "react";
-import "../styles.css"
 import HeaderLinks from "../components/Header/HeaderLinks";
 import Header from "../components/Header/Header";
 import {makeStyles} from "@material-ui/core/styles";
@@ -18,11 +17,7 @@ export default function Layout({
                                    children
                                }) {
     const classes = useStyles();
-    const imageClasses = classNames(
-        classes.imgRaised,
-        classes.imgRoundedCircle,
-        classes.imgFluid
-    );
+
     return (
         <div>
             <Header

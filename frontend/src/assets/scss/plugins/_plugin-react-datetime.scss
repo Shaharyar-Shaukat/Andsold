@@ -3,6 +3,7 @@
 */
 .rdt {
   position: relative;
+
   .rdtPicker {
     -webkit-transition: all 150ms linear;
     -moz-transition: all 150ms linear;
@@ -14,6 +15,7 @@
     display: block;
     opacity: 0;
   }
+
   &.rdtOpen {
     .rdtPicker {
       opacity: 1;
@@ -21,10 +23,11 @@
       margin-top: 0;
     }
   }
+
   input.form-control {
     border: 0;
     background-image: linear-gradient(#9c27b0, #9c27b0),
-      linear-gradient(#d2d2d2, #d2d2d2);
+    linear-gradient(#d2d2d2, #d2d2d2);
     background-size: 0 2px, 100% 1px;
     background-repeat: no-repeat;
     background-position: center bottom, center calc(100% - 1px);
@@ -45,15 +48,17 @@
     width: 100%;
     color: #555;
   }
+
   input.form-control:focus {
     outline: none;
     background-image: linear-gradient(#9c27b0, #9c27b0),
-      linear-gradient(#d2d2d2, #d2d2d2);
+    linear-gradient(#d2d2d2, #d2d2d2);
     background-size: 100% 2px, 100% 1px;
     box-shadow: none;
     transition-duration: 0.3s;
   }
 }
+
 .rdtPicker {
   display: none;
   position: absolute;
@@ -83,6 +88,7 @@
     border-right: 0.4em solid transparent;
     border-left: 0.4em solid transparent;
   }
+
   &:after {
     border-bottom: 0.4em solid #ffffff;
     border-right: 0.4em solid transparent;
@@ -99,6 +105,7 @@
   display: block;
   top: 40px;
 }
+
 .rdtStatic .rdtPicker {
   box-shadow: none;
   position: static;
@@ -116,14 +123,17 @@
   border-color: $white-color !important;
   border-collapse: collapse;
 }
+
 .rdtPicker td,
 .rdtPicker th {
   text-align: center;
   padding: 1px;
 }
+
 .rdtPicker td {
   cursor: pointer;
 }
+
 .rdtDay {
   height: 30px;
   line-height: 33px;
@@ -131,6 +141,7 @@
   text-align: center;
   padding: 0px;
   border-radius: 50%;
+
   &.rdtToday.rdtActive,
   &.rdtActive,
   &.rdtActive:hover {
@@ -139,6 +150,7 @@
     @include shadow-big-color($brand-primary);
   }
 }
+
 .rdtDays {
   tr {
     .dow {
@@ -150,6 +162,7 @@
       padding-bottom: 5px;
       padding-top: 10px;
     }
+
     .rdtOld,
     .rdtNew {
       color: $grey-a400;
@@ -165,12 +178,15 @@
   background: #eeeeee;
   cursor: pointer;
 }
+
 .rdtPicker td.rdtToday {
   position: relative;
 }
+
 .rdtPicker td.rdtActive.rdtToday:before {
   border-bottom-color: #fff;
 }
+
 .rdtPicker td.rdtDisabled,
 .rdtPicker td.rdtDisabled:hover {
   background: none;
@@ -181,21 +197,25 @@
 .rdtPicker td span.rdtOld {
   color: #999999;
 }
+
 .rdtPicker td span.rdtDisabled,
 .rdtPicker td span.rdtDisabled:hover {
   background: none;
   color: #999999;
   cursor: not-allowed;
 }
+
 .rdtPicker .dow {
   width: 14.2857%;
   border-bottom: none;
 }
+
 .rdtPicker th.rdtSwitch {
   width: 50px;
   padding: 5px;
   border-radius: 4px;
 }
+
 .rdtPicker th.rdtNext,
 .rdtPicker th.rdtPrev {
   font-size: 21px;
@@ -231,9 +251,11 @@
   color: #999999;
   cursor: not-allowed;
 }
+
 .rdtPicker thead tr:first-child th {
   cursor: pointer;
 }
+
 .rdtPicker thead tr:first-child th:hover {
   background: #eeeeee;
 }
@@ -243,6 +265,7 @@
   background: none;
   cursor: pointer;
 }
+
 .rdtPicker button:hover {
   background-color: #eee;
 }
@@ -258,6 +281,7 @@ td.rdtYear {
   width: 25%;
   cursor: pointer;
 }
+
 td.rdtMonth:hover,
 td.rdtYear:hover {
   background: #eee;
@@ -275,6 +299,7 @@ td.rdtYear:hover {
     margin: 3px;
     border-radius: 50%;
   }
+
   .rdtCounterSeparator {
     width: 0;
     border: 1px solid transparent;
@@ -287,12 +312,14 @@ td.rdtYear:hover {
 
 .rdtCounter {
   width: 40px;
+
   .rdtCount {
     padding: 7px;
     height: 40px;
     border: 1px solid transparent;
   }
 }
+
 .rdtCounters {
   .rdtCounter:last-child {
     .rdtCount {
@@ -307,6 +334,7 @@ td.rdtYear:hover {
   padding: 7px;
   line-height: 100px;
 }
+
 .rdtCounter .rdtBtn {
   line-height: 40px;
   cursor: pointer;
@@ -326,10 +354,12 @@ td.rdtYear:hover {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none;
 }
+
 .rdtCounter .rdtBtn:hover {
   background: #eee;
   color: #797979;
 }
+
 .rdtCounter .rdtCount {
   font-size: inherit;
   line-height: 25px;
@@ -346,9 +376,11 @@ td.rdtYear:hover {
   font-size: inherit;
   margin-top: 37px;
 }
+
 .rdtMonths,
 .rdtYears {
   padding-bottom: 10px;
+
   .rdtMonth,
   .rdtYear {
     display: inline-block;

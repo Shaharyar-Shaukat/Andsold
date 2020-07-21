@@ -1,4 +1,4 @@
-const { errorHandler } = require('../helpers/dbErrorHandler');
+const {errorHandler} = require('../helpers/dbErrorHandler');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -20,13 +20,13 @@ exports.signin = (req, res) => {
         bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) throw err;
             if (!isMatch) {
-                return res.status(401).json({ error: 'Wrong Password' });
+                return res.status(401).json({error: 'Wrong Password'});
             } else {
                 // TODO: Tokens should expire, but should also get refreshed if the user is active.
                 const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
                 res.cookie('t', token, {expire: new Date() + 9999});
-                const {_id, firstName,lastName, address,email} = user;
-                return res.json({accessToken: token, user: {_id, email, firstName,lastName, address}});
+                const {_id, firstName, lastName, address, email} = user;
+                return res.json({accessToken: token, user: {_id, email, firstName, lastName, address}});
             }
         });
     });
@@ -54,7 +54,7 @@ exports.authenticate = (req, res, next) => {
  */
 exports.authorize = (req, res, next) => {
     let authorized = req.profile && req.profile._id.equals(req.auth._id);
-    if (!authorized) return res.status(403).json({ error: 'Access denied' });
+    if (!authorized) return res.status(403).json({error: 'Access denied'});
     next();
 };
 

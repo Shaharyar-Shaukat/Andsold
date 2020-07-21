@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import classNames from "classnames";
 import {makeStyles} from "@material-ui/core/styles";
 import {getAuctions} from 'auction/api';
@@ -8,7 +8,7 @@ import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 
-import styles from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
+import styles from "assets/jss/material-kit-react/views/landingPageSections/itemStyle.js";
 
 
 const useStyles = makeStyles(styles);

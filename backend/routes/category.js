@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const { categoryById, list, create, read, update, remove } = require('../controllers/category');
-const { authenticate } = require('../controllers/authentication');
+const {categoryById, list, create, read, update, remove} = require('../controllers/category');
+const {authenticate} = require('../controllers/authentication');
 
 // list categories
 router.get('/list', list);

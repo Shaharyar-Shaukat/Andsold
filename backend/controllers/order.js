@@ -27,10 +27,10 @@ exports.listBought = (req, res) => {
             }
         },
         {
-            $replaceRoot: { newRoot: { $arrayElemAt: [ "$orders", 0 ] }}
+            $replaceRoot: {newRoot: {$arrayElemAt: ["$orders", 0]}}
         },
-        { $project: { orders: 0 } }
-    ], function(err, auctions) {
+        {$project: {orders: 0}}
+    ], function (err, auctions) {
         if (err) return errorHandler(res, err);
         res.json(auctions.orders);
     });
@@ -50,10 +50,10 @@ exports.listSold = (req, res) => {
             }
         },
         {
-            $replaceRoot: { newRoot: { $arrayElemAt: [ "$orders", 0 ] }}
+            $replaceRoot: {newRoot: {$arrayElemAt: ["$orders", 0]}}
         },
-        { $project: { orders: 0 } }
-    ], function(err, auctions) {
+        {$project: {orders: 0}}
+    ], function (err, auctions) {
         if (err) return errorHandler(res, err);
         res.json(auctions);
     });

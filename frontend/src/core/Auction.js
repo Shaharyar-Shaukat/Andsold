@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import Layout from './Layout';
-import { readAuction, listRelatedAuction } from 'auction/api';
-import CardBlock from 'components/other/CardBlock';
-import SingleAuction from 'components/other/SingleAuction';
+import {listRelatedAuction, readAuction} from 'auction/api';
+import CardBlock from 'components/Card/CardBlock';
+import SingleAuction from 'components/Card/SingleAuction';
 import GridItem from "../components/Grid/GridItem";
 
-import styles from "assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
+import styles from "assets/jss/material-kit-react/views/landingPageSections/itemStyle.js";
 import {makeStyles} from "@material-ui/core/styles";
-import Checkbox from "../components/other/Checkbox";
-import RadioBox from "../components/other/RadioBox";
-import {prices} from "../components/other/PriceRange";
 import GridContainer from "../components/Grid/GridContainer";
+
 const useStyles = makeStyles(styles);
 
 const Auction = props => {
@@ -53,7 +51,8 @@ const Auction = props => {
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <div className={classes.title}>
-                            {product && product.description && <SingleAuction product={product} showViewProductButton={false} />}
+                            {product && product.description &&
+                            <SingleAuction product={product} showViewProductButton={false}/>}
                         </div>
                     </GridItem>
                 </GridContainer>
@@ -62,7 +61,8 @@ const Auction = props => {
                 <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                         <div className={classes.title}>
-                            <h2>Related products</h2></div>
+                            <h2>Related products</h2>
+                        </div>
                         <GridContainer>
                             {relatedProduct.map((product, i) => (
                                 <GridItem xs={12} sm={12} md={4} key={i}>

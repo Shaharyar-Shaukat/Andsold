@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema(
     {
@@ -27,7 +26,7 @@ const UserSchema = new mongoose.Schema(
         },
         phoneNumber: String,
         premium: {
-            type:Boolean,
+            type: Boolean,
             default: false
         }
     },

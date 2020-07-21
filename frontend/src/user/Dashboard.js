@@ -10,10 +10,18 @@ import profile from "../assets/img/avatar.png";
 import styles from "../assets/jss/material-kit-react/views/profilePage.js";
 import {isAuthenticated} from "../auth";
 import {Link} from "react-router-dom";
+
 const useStyles = makeStyles(styles);
 
 export default function Dashboard(props) {
 
+    const classes = useStyles();
+    const {...rest} = props;
+    const imageClasses = classNames(
+        classes.imgRaised,
+        classes.imgRoundedCircle,
+        classes.imgFluid
+    );
     const {
         user: {_id, firstName, lastName, address, email}
     } = isAuthenticated();
@@ -22,7 +30,7 @@ export default function Dashboard(props) {
         return (
             <div className="card mb-5">
                 <h3 className="card-header">User Information</h3>
-                <ul className="list-group" style={{listStyleType : 'none'}}>
+                <ul className="list-group" style={{listStyleType: 'none'}}>
                     <li className="list-group-item">Name : {firstName + " " + lastName}</li>
                     <li className="list-group-item">Email : {email}</li>
                     <li className="list-group-item">Address : {address}</li>
@@ -34,7 +42,7 @@ export default function Dashboard(props) {
     const userLinks = () => {
         return (
             <div className="card">
-                <ul className="list-group" style={{listStyleType : 'none'}}>
+                <ul className="list-group" style={{listStyleType: 'none'}}>
                     <li className="list-group-item">
                         <Link className="nav-link" to={`/profile/${_id}`}>
                             Update Profile
@@ -71,15 +79,6 @@ export default function Dashboard(props) {
         );
     };
 
-    const classes = useStyles();
-    const {...rest} = props;
-    const imageClasses = classNames(
-        classes.imgRaised,
-        classes.imgRoundedCircle,
-        classes.imgFluid
-    );
-    const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
-
     return (
         <div>
             <Header
@@ -114,7 +113,8 @@ export default function Dashboard(props) {
                             {userLinks()}
                         </div>
                     </div>
-                </div>,
+                </div>
+                ,
             </div>
         </div>
     );
