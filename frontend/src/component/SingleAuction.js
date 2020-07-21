@@ -10,42 +10,7 @@ const SingleAuction = ({ product }) => {
     product: "",
   });
 
-  const calculateTimeLeft = () => {
-    const [timeleft, setTimrLeft] = useState(calculateTimeLeft());
 
-    let year = new Date().getFullYear();
-    let difference = +new Date(`${year}-10-1`) - +new Date();
-    let timeLeft = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        // days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    }
-
-    return timeLeft;
-  };
-  useEffect(() => {
-    setTimeout(() => {
-      setTimrLeft(calculateTimeLeft());
-    }, 1000);
-  });
-  const timerComponents = [];
-
-  Object.keys(timeLeft).forEach((interval) => {
-    if (!timeLeft[interval]) {
-      return;
-    }
-
-    timerComponents.push(
-      <span>
-        {timeLeft[interval]} {interval}{" "}
-      </span>
-    );
-  });
   const { user, accessToken } = isAuthenticated();
   const handleChange = (id) => (event) => {
     setData({ ...data, [id]: 5 });
