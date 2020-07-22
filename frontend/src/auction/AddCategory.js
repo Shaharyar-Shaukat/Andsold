@@ -13,8 +13,10 @@ const AddCategory = () => {
     const {user, accessToken} = isAuthenticated();
 
     const handleChange = e => {
+        setSuccess(false);
         setError("");
         setName(e.target.value);
+        
     };
 
     const clickSubmit = e => {
@@ -51,7 +53,7 @@ const AddCategory = () => {
 
     const showSuccess = () => {
         if (success) {
-            return <h3 className="text-success">{name} is created</h3>;
+            return <h3 className="text-success">{name} is created</h3>
         }
     };
 
@@ -72,7 +74,7 @@ const AddCategory = () => {
     return (
         <Layout
             title="Add a new category"
-            description={`G'day ${user.name}, ready to add a new category?`}
+            description={`G'day ${user.firstName}, ready to add a new category?`}
         >
             <div className="row">
                 <div className="col-md-8 offset-md-2">

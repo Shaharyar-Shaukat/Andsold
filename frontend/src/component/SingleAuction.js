@@ -151,7 +151,7 @@ const SingleAuction = ({ product }) => {
         <p className="black-9">
         <b>Category:</b> {product.category && product.category.name}
         </p>
-        <p className="black-8"><b>Added on the :</b> {time} {n1} </p>
+        <p className="black-8"><b>Added on:</b> {time} {n1} </p>
         </div>
         <div className="card-header card-header-2 "><big>Auction Status</big></div>
         <div className="card-body">

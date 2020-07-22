@@ -138,7 +138,7 @@ const LandPage = () => {
     return (
         <Layout
             title="Shop Page"
-            description="Search and find books of your choice"
+            description="Search and find the auciton of your choice"
             className="container-fluid"
         >,
             <SearchBar/>
